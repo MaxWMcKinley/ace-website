@@ -36,23 +36,26 @@ if(_POST)
 	$query = "SELECT * FROM `$usertable`";
 	$result = mysql_query($query);
 
-	$exists = false;
+	$exists = FALSE;
 	if($result)
 	{
 		while ($row = mysql_fetch_array($result))
 		{
-			if($uin == $row['uin']) { $exists = true; }
+			if($uin == $row['uin']) { $exists = TRUE; }
 		}
 	}
 
 	// Enter new information into database
-	if(exists)	// Update existing member's data
+	if($exists)	// Update existing member's data
 	{
 		$query = "UPDATE `$usertable` SET `first_name`='$first_name', `last_name`='$last_name', `major`='$major', `family`='$family', `position`='$position', `joined`='$joined', `graduation`='$graduation', `personal_email`='$personal_email', `tamu_email`='$tamu_email', `phone_number`='$phone_number' WHERE `uin`='$uin'";
 		$result = mysql_query($query);
 	}
 	else {	// Create entry for new member
 		$query = "INSERT INTO `$usertable` (`uin`, `first_name`, `last_name`, `major`, `family`, `position`, `joined`, `graduation`, `personal_email`, `tamu_email`, `phone_number`) VALUES ('$uin', '$first_name', '$last_name', '$major', '$family', '$position', '$joined', '$graduation', '$personal_email', '$tamu_email', '$phone_number')";
+		$result = mysql_query($query);
+
+		$query = "INSERT INTO `points` (`uin`) VALUES ('$uin')";
 		$result = mysql_query($query);
 	}
 

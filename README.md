@@ -3,8 +3,6 @@ Prototype website for Aggie Club of Engineers
 
 To-dos
 -Make html files dynamic with php
--Add update functionality to member info for duplicate uins
--Make member info creations make a new entry into points table
 -More data validation
 -Protect against injection (prepared statements, mysqli)
 -Create point management page

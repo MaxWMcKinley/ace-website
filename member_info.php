@@ -15,13 +15,13 @@ if(_POST)
 	$phone_number = $_POST['phone_number'];
 
 	// Data validation
-	if(!$uin) { die("UIN was not entered"); }
-	if(!$first_name) { die("First name was not entered"); }
-	if(!$last_name) { die("Last name was not entered"); }
-	if(!$joined) { die("Date joined was not entered"); }
-	if(!$graduation) { die("Graduation date was not entered"); }
-	if(!$email) { die("Email was not entered"); }
-	if(!$phone_number) { die("Phone number was not entered"); }
+	if(!$uin) { die("UIN was not entered. You can just click back and add it in, then resubmit."); }
+	if(!$first_name) { die("First name was not entered. You can just click back and add it in, then resubmit."); }
+	if(!$last_name) { die("Last name was not entered. You can just click back and add it in, then resubmit."); }
+	if(!$joined) { die("Date joined was not entered. You can just click back and add it in, then resubmit."); }
+	if(!$graduation) { die("Graduation date was not entered. You can just click back and add it in, then resubmit."); }
+	if(!$email) { die("Email was not entered. You can just click back and add it in, then resubmit."); }
+	if(!$phone_number) { die("Phone number was not entered. You can just click back and add it in, then resubmit."); }
 	$joined = $joined . '-01';
 	$graduation = $graduation . '-01';
 
@@ -53,7 +53,7 @@ if(_POST)
 	// Enter new information into database
 	if($exists)	// Update existing member's data
 	{
-		$query = "UPDATE `$usertable` SET `first_name`='$first_name', `last_name`='$last_name', `major`='$major', `family`='$family', `position`='$position', `joined`='$joined', `graduation`='$graduation', `$email`='$email', `phone_number`='$phone_number' WHERE `uin`='$uin'";
+		$query = "UPDATE `$usertable` SET `first_name`='$first_name', `last_name`='$last_name', `major`='$major', `family`='$family', `position`='$position', `joined`='$joined', `graduation`='$graduation', `email`='$email', `phone_number`='$phone_number' WHERE `uin`='$uin'";
 		$result = mysql_query($query);
 	}
 	else {	// Create entry for new member

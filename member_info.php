@@ -17,6 +17,12 @@ if(_POST)
 
 	// Data validation
 	if(!$uin) { die("UIN was not entered"); }
+	if(!$first_name) { die("First name was not entered"); }
+	if(!$last_name) { die("Last name was not entered"); }
+	if(!$joined) { die("Date joined was not entered"); }
+	if(!$graduation) { die("Graduation date was not entered"); }
+	if(!$personal_email) { die("Personal email was not entered"); }
+	if(!$phone_number) { die("Phone number was not entered"); }
 	$joined = $joined . '-01';
 	$graduation = $graduation . '-01';
 

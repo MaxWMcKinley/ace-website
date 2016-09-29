@@ -11,8 +11,7 @@ if(_POST)
 	$position = $_POST['position'];
 	$joined = $_POST['joined'];
 	$graduation = $_POST['graduation'];
-	$personal_email = $_POST['personal_email'];
-	$tamu_email = $_POST['tamu_email'];
+	$email = $_POST['email'];
 	$phone_number = $_POST['phone_number'];
 
 	// Data validation
@@ -21,7 +20,7 @@ if(_POST)
 	if(!$last_name) { die("Last name was not entered"); }
 	if(!$joined) { die("Date joined was not entered"); }
 	if(!$graduation) { die("Graduation date was not entered"); }
-	if(!$personal_email) { die("Personal email was not entered"); }
+	if(!$email) { die("Email was not entered"); }
 	if(!$phone_number) { die("Phone number was not entered"); }
 	$joined = $joined . '-01';
 	$graduation = $graduation . '-01';
@@ -54,11 +53,11 @@ if(_POST)
 	// Enter new information into database
 	if($exists)	// Update existing member's data
 	{
-		$query = "UPDATE `$usertable` SET `first_name`='$first_name', `last_name`='$last_name', `major`='$major', `family`='$family', `position`='$position', `joined`='$joined', `graduation`='$graduation', `personal_email`='$personal_email', `tamu_email`='$tamu_email', `phone_number`='$phone_number' WHERE `uin`='$uin'";
+		$query = "UPDATE `$usertable` SET `first_name`='$first_name', `last_name`='$last_name', `major`='$major', `family`='$family', `position`='$position', `joined`='$joined', `graduation`='$graduation', `$email`='$email', `phone_number`='$phone_number' WHERE `uin`='$uin'";
 		$result = mysql_query($query);
 	}
 	else {	// Create entry for new member
-		$query = "INSERT INTO `$usertable` (`uin`, `first_name`, `last_name`, `major`, `family`, `position`, `joined`, `graduation`, `personal_email`, `tamu_email`, `phone_number`) VALUES ('$uin', '$first_name', '$last_name', '$major', '$family', '$position', '$joined', '$graduation', '$personal_email', '$tamu_email', '$phone_number')";
+		$query = "INSERT INTO `$usertable` (`uin`, `first_name`, `last_name`, `major`, `family`, `position`, `joined`, `graduation`, `email`, `phone_number`) VALUES ('$uin', '$first_name', '$last_name', '$major', '$family', '$position', '$joined', '$graduation', '$email', '$phone_number')";
 		$result = mysql_query($query);
 
 		$query = "INSERT INTO `points` (`uin`) VALUES ('$uin')";

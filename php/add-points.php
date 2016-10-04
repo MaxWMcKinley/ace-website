@@ -23,18 +23,40 @@ if(_POST)
 	if (!$connection) { die('Could not connect: ' . mysql_error()); }
 	mysql_select_db($dbname, $connection);
 
-	$query = "SELECT `$type` FROM `$usertable` WHERE `uin`='$name'";
+	// Split name into first and last names
+	$names = explode(" ", $name);
+	$first_name = $names[0];
+	$last_name = $names[1];
+
+	// Get uin of ACE member for use with points table
+	$query = "SELECT `uin` FROM `members` WHERE `first_name`='$first_name' AND `last_name`='$last_name'";
 	$result = mysql_query($query);
 
-	if ($result)
-	{
+	if ($result) {
+		$row = mysql_fetch_array($result);
+		$uin = $row[0];
+	}
+	else {	// No result from database
+			die("Nothing in database result when trying to get UIN");
+	}
+
+	// Get the current points for the ACE member in this category
+	$query = "SELECT `$type` FROM `$usertable` WHERE `uin`='$uin'";
+	$result = mysql_query($query);
+
+	// Calculate how many total points the member should now have
+	if ($result) {
 		$current_points = mysql_fetch_array($result);
 		$points = $current_points[0] + $points;
 	}
-
-
-	$query = "UPDATE `$usertable` SET `$type`='$points' WHERE `uin`='$name'";
+	else {	// No result from database
+			die("Nothing in database result when trying to get points");
+	}
+	// Update database with new point total
+	$query = "UPDATE `$usertable` SET `$type`='$points' WHERE `uin`='$uin'";
 	$result = mysql_query($query);
+
+	if(!$result) echo "Update was unsuccesful";
 
 	mysql_close($connection);	// Close database connection
 

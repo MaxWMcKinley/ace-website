@@ -42,7 +42,7 @@ if(_POST)
 	$result = mysql_query($query);
 
 	$exists = FALSE;
-	if($result)
+	if ($result)
 	{
 		while ($row = mysql_fetch_array($result))
 		{

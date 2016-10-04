@@ -38,6 +38,6 @@ if(_POST)
 
 	mysql_close($connection);	// Close database connection
 
-	include 'points.html';
+	include '../points-manager.html';
 }
 ?>

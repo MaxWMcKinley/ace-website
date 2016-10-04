@@ -53,13 +53,16 @@
 				<br><br>
 				<div>
 					<label>Name: </label>
-					<input type="text" name="name">
+					<input type="text" id="name" name="name" onkeyup="KeyPress(event)">
+					<div id="result"></div>
 				</div>
 				<br>
 				<button type="submit">Submit</button>
 			</fieldset>
 		</form>
 	</div>
-	<!-- <script src="js/points.js"></script> -->
+	<script src="js/jquery-3.1.0.min.js"></script>
+	<script src="js/points-manager.js"></script>
+	<script src="js/auto-complete.js"></script>
 </body>
 </html>

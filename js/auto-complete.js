@@ -1,6 +1,11 @@
 // Array that needs to be filled with values that should be autocompleted
 var dictionary;
 
+// Get array of the names of all ACE members
+$.get("../php/get-names.php", function(response) {
+	dictionary = JSON.parse(response);
+});
+
 // User types into name entry text box
 function KeyPress (e) {
 	var input = document.getElementById("name").value;		// Get what the user has typed so far

@@ -60,6 +60,13 @@ if(_POST)
 
 	mysql_close($connection);	// Close database connection
 
-	include '../points-manager.html';
+	if(isset($_REQUEST["destination"])){
+       header("Location: {$_REQUEST["destination"]}");
+   }else if(isset($_SERVER["HTTP_REFERER"])){
+       header("Location: {$_SERVER["HTTP_REFERER"]}");
+   }
+	else {
+		echo "Couldn't redirect page back to form";
+	}
 }
 ?>

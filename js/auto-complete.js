@@ -4,14 +4,7 @@ var dictionary;
 // User types into name entry text box
 function KeyPress (e) {
 	var input = document.getElementById("name").value;		// Get what the user has typed so far
-
-	// if (e.keyCode == 13) {	// User pressed "Enter" key
-	// 	document.getElementById("name").value = "";	// Reset text field
-	// 	// document.getElementById("result").innerHTML = "";	// Reset autocomplete field
-	// }
-	// else {
-		Autocomplete(e.keyCode, input);
-	// }
+	Autocomplete(e.keyCode, input);
 }
 
 // Search through dictionary to match against user input

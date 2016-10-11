@@ -38,31 +38,33 @@ if ($result) {
 	$row = mysql_fetch_array($result);
 }
 
-// Calculate total points of ACE members
-$total = $row['recruitment'] + $row['service'] + $row['fundraising'] + $row['academic'] + $row['athletics'] + $row['social'] + $row['tailgate'] + $row['corporate_relations'] + $row['pr'] + $row['songfest'] + $row['special_events'] + $row['attendance'] + $row['attendance'] + $row['family'] + $row['sober_rides'] + $row['flex'];
+// Calculate total points of ACE member
+$total = $row['recruitment'] + $row['service'] + $row['fundraising'] + $row['academic'] + $row['athletics'] + $row['social'] + $row['tailgate'] + $row['corporate_relations'] + $row['pr'] + $row['songfest'] + $row['special_events'] + $row['attendance'] + $row['family'] + $row['sober_rides'] + $row['flex'];
 
 // Calculate the points still needed for each category
-$recruitment = 0;
+$needed = $row['required'] - $total;
+if ($needed < 0) $needed = 0;
+$recruitment = "N/A";
 $service = 25 - $row['service'];
 if ($service < 0) $service = 0;
 $fundraising = 20 - $row['fundraising'];
 if ($fundraising < 0) $fundraising = 0;
-$academic = 0;
-$athletics = 0;
+$academic = "N/A";
+$athletics = "N/A";
 $social = 5 - $row['social'];
 if ($social < 0) $social = 0;
-$tailgate = 0;
-$corporate_relations = 0;
+$tailgate = "N/A";
+$corporate_relations = "N/A";
 $pr = 5 - $row['pr'];
 if ($pr < 0) $pr = 0;
-$songfest = 0;
-$special_events = 0;
-$attendance = 8 - $row['attendance'];
-if ($attendance < 0) $attendance = 0;
-$family = (7 - $row['family']);
+$songfest = "N/A";
+$special_events = "N/A";
+$attendance = "N/A";
+$family = (9 - $row['family']);
 if ($family < 0) $family = 0;
-$sober_rides = 0;
-$flex = 0;
+$sober_rides = "N/A";
+$flex = $needed - ($service + $fundraising + $social + $pr + $family);
+if ($flex < 0) $flex = 0;
 
 // Output html table with point information
 echo "<h2>Points You Have</h2>";
@@ -126,7 +128,7 @@ echo "<table>";
 		echo "<th>Flex</th>";
 	echo "</tr>";
 	echo "<tr>";
-		echo "<td>" . ($row['required'] - $total) . "</td>";
+		echo "<td>" . $needed . "</td>";
 		echo "<td>" . $recruitment . "</td>";
 		echo "<td>" . $service . "</td>";
 		echo "<td>" . $fundraising . "</td>";

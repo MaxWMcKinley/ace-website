@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ACE</title>
+	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+</head>
+<body>
+	<h1 style="color:maroon; padding-left:50px">Create Event</h1>
+	<form action="php/create-event.php" method="POST" name="event" class="pure-form pure-form-aligned">
+		<fieldset>
+			<div class="pure-control-group">
+				<label for="name">Your Name: </label>
+				<input type="text" name="name" />
+			</div>
+
+			<div class="pure-control-group">
+				<label for="event_name">Event Name: </label>
+				<input type="text" name="event_name" />
+			</div>
+
+			<div class="pure-control-group">
+				<label for="points">Points per hour: </label>
+				<input type="number" min="1" name="points" />
+			</div>
+
+			<div class="pure-control-group">
+				<label for="points_type">Points Type: </label>
+				<select name="points_type">
+					<option value="academic">Academic</option>
+					<option value="athletics">Athletics</option>
+					<option value="attendance">Attendance</option>
+					<option value="coporate_relations">Coporate Relations</option>
+					<option value="family">Family</option>
+					<option value="fundraising">Fundraising</option>
+					<option value="attendance">Meeting Attendance</option>
+					<option value="pr">Public Relations</option>
+					<option value="recruitment">Recruitment</option>
+					<option value="service">Service</option>
+					<option value="sober_rides">Sober Riders</option>
+					<option value="social">Social</option>
+					<option value="songfest">Songfest</option>
+					<option value="special_events">Special Events</option>
+					<option value="tailgate">Tailgate</option>
+					<option value="flex">Flex</option>
+				</select>
+			</div>
+		</fieldset>
+
+		<fieldset>
+			<div class="pure-control-group">
+				<label for="date">Date of Event: </label>
+				<input type="date" name="date">
+			</div>
+
+			<div class="pure-control-group">
+				<label for="start">Start Time: </label>
+				<input type="time" name="start" value="12:00:00">
+			</div>
+
+			<div class="pure-control-group">
+				<label for="end">End Time: </label>
+				<input type="time" name="end" value="12:00:00">
+			</div>
+
+			<div class="pure-control-group">
+				<label for="freeze">Freeze Date: </label>
+				<input type="date" name="freeze">
+			</div>
+
+			<div class="pure-control-group">
+				<label for="shift">Shift Length: </label>
+				<input type="number" min="1" name="shift" />
+			</div>
+
+		<br><br>
+		<button type="submit" class="pure-button pure-button-primary" style="margin-left:50px; font-size:150%;">Submit</button>
+		<br><br><br><br><br>
+	</form>
+</body>

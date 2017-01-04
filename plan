@@ -1,0 +1,51 @@
+create event
+	event id, shift length, points per shift, date, times, freeze date
+	put into event table
+	event cloning
+
+view events
+	get all events from events table
+
+sign up for events
+	connect uin to event id in sign ups table
+
+indivudual event management
+	view events you have signed up for
+	unsign yourself up if before freeze date
+
+officer event admin
+	manually add or remove people from event
+	change event details
+	delete event
+	submit event
+		-attended
+		-missed
+		-delete from event table and sign ups table, move to points table
+
+add points manually to points table (connected to event that happened)
+
+add required points
+
+add new members to database
+	delete alumni
+
+View points individually
+	points broken down into categories
+	points connected to event that you got them from
+	comes from points table
+		-return json array with array for service, flex, and fundraising points
+
+Semesterly reset
+	check for outstanding events
+	delete points table
+	reset officers and execs
+
+exec views
+	view people below threshold
+	view points list in order and by category
+
+Delete alumni
+
+Fix name autocomplete
+
+Account all the things

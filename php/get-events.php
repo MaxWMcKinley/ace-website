@@ -41,4 +41,7 @@ while ($row = $result->fetch_assoc()) {
 // Encoding the array and returning
 $json = json_encode($array);
 echo $json;
+
+$stmt->close();
+$conn->close();
 ?>

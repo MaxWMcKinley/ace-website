@@ -2,6 +2,9 @@ create event
 	event id, shift length, points per shift, date, times, freeze date
 	put into event table
 	event cloning
+	potential differant way to handle shifts
+		let user manually create indivudial shifts
+		save in different table with columns event id, shift start, shift end, spots available (shift title?)
 
 view events
 	get all events from events table

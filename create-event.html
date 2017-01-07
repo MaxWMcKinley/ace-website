@@ -1,0 +1,82 @@
+	<br>
+	<h1 style="color:maroon; padding-left:50px">Create Event</h1>
+	<form action="../php/create-event.php" method="POST" name="event">
+
+		<!-- Name Inputs -->
+		<div class="form-inline">
+			<div class="form-group">
+				<label for="name">Your Name: </label>
+				<input type="text" class="form-control" name="name" />
+			</div>
+
+			<div class="form-group">
+				<label for="event_name">Event Name: </label>
+				<input type="text" class="form-control" name="event_name" />
+			</div>
+		</div>
+		<br>
+
+		<!-- Point Inputs -->
+		<div class="form-inline">
+			<div class="form-group">
+				<label for="points_type">Points Type: </label>
+				<select class="form-control" name="points_type">
+					<option value="fundraising">Fundraising</option>
+					<option value="service">Service</option>
+					<option value="flex">Flex</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label for="points">Points per shift: </label>
+				<input type="number" class="form-control" min="1" name="points" />
+			</div>
+		</div>
+		<br>
+
+		<!-- Shift Inputs -->
+		<div class="form-inline">
+			<div class="form-group">
+				<label for="shift-length">Shift Length: </label>
+				<input type="number" class="form-control" min="1" name="shift-length" />
+			</div>
+
+			<div class="form-group">
+				<label for="shift-amount">Number of Shifts: </label>
+				<input type="number" class="form-control" min="1" name="shift-amount" />
+			</div>
+		</div>
+		<br>
+
+		<!-- Date Inputs -->
+		<div class="form-inline">
+			<div class="form-group">
+				<label for="date">Date of Event: </label>
+				<input type="date" class="form-control" name="date">
+			</div>
+
+			<div class="form-group">
+				<label for="freeze">Freeze Date: </label>
+				<input type="date" class="form-control" name="freeze">
+			</div>
+		</div>
+		<br>
+
+		<!-- Time Inputs -->
+		<div class="form-inline">
+			<div class="form-group">
+				<label for="start">Start Time: </label>
+				<input type="time" class="form-control" name="start" value="12:00:00">
+			</div>
+
+			<div class="form-group">
+				<label for="end">End Time: </label>
+				<input type="time" class="form-control" name="end" value="12:00:00">
+			</div>
+		</div>
+
+		<br>
+		<button type="submit" class="btn btn-default">Submit</button>
+		<br><br><br><br><br>
+	</form>
+</body>

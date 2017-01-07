@@ -1,0 +1,67 @@
+<!-- Improvements
+-Abililty to delete rows from table
+-Ability to edit table
+-Styling for table
+-Styling for autocomplete
+-Maybe make autocomplete required
+-Handle Other point selection
+-Custom points
+-Check against duplicates
+-Ask Matt about CSS files
+-Shifting nav bar
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	 <title>ACE</title
+</head>
+<body>
+	<h1>ACE Points Manager</h1>
+	<br>
+	<div id="event">
+		<h2>Add Points</h2>
+		<form action="../php/add-points.php" method="POST">
+			<fieldset>
+				<div>
+					<label>Point Type: </label>
+					<select name="type" id="select" autofocus="autofocus">
+						<option value="required">Required</option>
+						<option value="academic">Academic</option>
+						<option value="athletics">Athletics</option>
+						<option value="attendance">Attendance</option>
+						<option value="corporate_relations">Coporate Relations</option>
+						<option value="family">Family</option>
+						<option value="fundraising">Fundraising</option>
+						<option value="attendance">Meeting Attendance</option>
+						<option value="pr">Public Relations</option>
+						<option value="recruitment">Recruitment</option>
+						<option value="service">Service</option>
+						<option value="sober_rides">Sober Riders</option>
+						<option value="social">Social</option>
+						<option value="songfest">Songfest</option>
+						<option value="special_events">Special Events</option>
+						<option value="tailgate">Tailgate</option>
+						<option value="flex">Other</option>
+					</select>
+				</div>
+				<br><br>
+				<div>
+					<label>Points: </label>
+					<input type="number" name="points" min="1" max="100" value="10">
+				</div>
+				<br><br>
+				<div>
+					<label>Name: </label>
+					<input type="text" id="name" name="name" onkeyup="KeyPress(event)">
+					<div id="result"></div>
+				</div>
+				<br>
+				<button type="submit">Submit</button>
+			</fieldset>
+		</form>
+	</div>
+	<script src="../js/jquery-3.1.0.min.js"></script>
+	<script src="../js/auto-complete.js"></script>
+</body>
+</html>

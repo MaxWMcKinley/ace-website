@@ -12,6 +12,19 @@ view events
 sign up for events
 	connect uin to event id in sign ups table
 
+
+sign up for shifts
+
+shift table
+event id, shift start, shift end, shift id, spots available
+
+sign ups table
+shift id, uin
+
+event table
+	all event data
+
+
 indivudual event management
 	view events you have signed up for
 	unsign yourself up if before freeze date

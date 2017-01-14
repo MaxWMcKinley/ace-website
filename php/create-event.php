@@ -8,22 +8,20 @@ if(_POST)
 	$points = $_POST['points'];
 	$points_type = $_POST['points_type'];
 	$date = $_POST['date'];
+	$freeze = $_POST['freeze'];
 	$start = $_POST['start'];
 	$end = $_POST['end'];
-	$freeze = $_POST['freeze'];
-	$shift_length = $_POST['shift-length'];
-	$shift_amount = $_POST['shift-amount'];
+	$spots = $_POST['spots'];
 
 	// Data validation
 	if(!$name) { die("Name was not entered. You can just click back and add it in, then resubmit."); }
 	if(!$event_name) { die("Event name was not entered. You can just click back and add it in, then resubmit."); }
 	if(!$points) { die("Points per hour was not entered. You can just click back and add it in, then resubmit."); }
 	if(!$date) { die("Date was not entered. You can just click back and add it in, then resubmit."); }
+	if(!$freeze) { die("Freeze date was not entered. You can just click back and add it in, then resubmit."); }
 	if(!$start) { die("Start time was not entered. You can just click back and add it in, then resubmit."); }
 	if(!$end) { die("End time was not entered. You can just click back and add it in, then resubmit."); }
-	if(!$freeze) { die("Freeze date was not entered. You can just click back and add it in, then resubmit."); }
-	if(!$shift_amount) { die("Number of shifts was not entered. You can just click back and add it in, then resubmit."); }
-	if(!$shift_length) { die("Shift length was not entered. You can just click back and add it in, then resubmit."); }
+	if(!$spots) { die("Number of spots available was not entered. You can just click back and add it in, then resubmit."); }
 
 	// Setting connection variables
 	$hostname="localhost";
@@ -62,21 +60,40 @@ if(_POST)
 		$uin = $result;
 		
 	// Create a unique id for the event
-	$id = uniqid();
+	$event_id = uniqid();
 
 	// Preparing SQL statement to create event
-	if (!($stmt = $conn->prepare("INSERT INTO events (id, uin, name, points, type, date, start, end, shift_length, shift_amount, freeze) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")))
+	if (!($stmt = $conn->prepare("INSERT INTO events (id, uin, name, points, type, date, freeze) VALUES (?, ?, ?, ?, ?, ?, ?)")))
 		echo "Insert statement preparation failed with error number " . $conn->errno . " (" . $conn->error . ")";
 
 	// Bind parameters to statement
-	if (!$stmt->bind_param("sisissssiis", $id, $uin, $event_name, $points, $points_type, $date, $start, $end, $shift_length, $shift_amount, $freeze))
+	if (!$stmt->bind_param("sssisss", $event_id, $uin, $event_name, $points, $points_type, $date, $freeze))
 		echo "Binding event parameters failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
 
 	// Execute statement
 	if (!$stmt->execute())
 		echo "Execute insert failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
-	else
-		echo "Event created succesfully";
+
+
+	// Preparing SQL statement to create shifts
+	if (!($stmt = $conn->prepare("INSERT INTO shifts (shiftid, eventid, shift_start, shift_end, spots) VALUES (?, ?, ?, ?, ?)")))
+		echo "Insert statement preparation failed with error number " . $conn->errno . " (" . $conn->error . ")";
+
+	// Bind parameters to statement
+	if (!$stmt->bind_param("ssssi", $shift_id, $event_id, $shift_start, $shift_end, $shift_spots))
+		echo "Binding event parameters failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
+
+
+	foreach ($start as $key => $shift_start) {
+		$shift_end = $end[$key];
+		$shift_spots = $spots[$key];
+		$shift_id = uniqid();
+
+		if (!$stmt->execute())
+			echo "Shift insert failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
+	}
+
+	echo "Event created succesfully";
 
 	$stmt->close();
 	$conn->close();

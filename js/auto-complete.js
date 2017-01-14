@@ -25,7 +25,7 @@ function filterMembers(input) {
 function Autocomplete(key, input) {
   var autoCompleteResult = filterMembers(input);	// Filter dictionary against user input
   document.getElementById("result").innerHTML = autoCompleteResult;	// Display matches
-
+  
   // Autocomplete entry if only one match
   // Also, only do this if key pressed was not delete or backspace
   if (autoCompleteResult.length == 1 && key != 8 && key != 46) {

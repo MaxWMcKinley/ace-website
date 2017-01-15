@@ -24,19 +24,19 @@ $('#eventModal').on('show.bs.modal', function (event) {
   var type = button.data('type'); // Extract info from data-* attributes
   var points = button.data('points'); // Extract info from data-* attributes
 
-  $.getJSON("../php/get-shifts.php", function(result){
+  var data = "id=" + id;
+  var shifts = "";
+  $.getJSON("../php/get-shifts.php", data, function(result){
+  		$.each( result, function( key, value ) {
+  			console.log("start: " + value.start + " end: " + value.end);
+  			shifts += `
+	 		<label class="checkbox-inline">
+	 			<input type="checkbox" value="1">${value.start}-${value.end}
+	 		</label>`;
+		});
 
+		document.getElementById("shifts").innerHTML = shifts;
   });
-  
-	var shifts = "";
-	// for (var i = start; i < end; i+=shiftLength) {
-	// 	shifts += `
-	// 		<label class="checkbox-inline">
-	// 				<input type="checkbox" value="1">${i}-${i+shiftLength}
-	// 		</label>`;
-	// }
-
-  document.getElementById("shifts").innerHTML = shifts;
 
   modal.find('.modal-title').text(name)
   modal.find('.modal-body h4[id="officer"]').text(officer_name);

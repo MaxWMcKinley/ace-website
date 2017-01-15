@@ -59,5 +59,6 @@ $json = json_encode($array);
 echo $json;
 
 $stmt->close();
+$name_stmt->close();
 $conn->close();
 ?>

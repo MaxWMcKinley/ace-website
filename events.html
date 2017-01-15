@@ -9,22 +9,24 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h2 class="modal-title"></h2>
       </div>
-      <div class="modal-body">
-        <h4 id="officer"></h4>
-        <p id="points"></p>
-        <form>
+      <form action="php/sign-up.php" method="POST">
+        <div class="modal-body">
+          <h4 id="officer"></h4>
+          <hr>
+          <p style="font-size: 12pt;" id="points"></p>
         	<div class="checkbox" id="shifts"></div>
+          <hr>
     			<div class="form-group">
             <label for="name" class="control-label">Your Name:</label>
-            <input type="text" class="form-control" id="name" onkeyup="KeyPress(event)">
+            <input type="text" class="form-control" name="name" id="name" onkeyup="KeyPress(event)">
     			</div>
           <div id="result"></div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Sign Up</button>
-      </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Sign Up</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

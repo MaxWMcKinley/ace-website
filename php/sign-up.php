@@ -1,5 +1,6 @@
 <?php
-$id = $_GET['id'];
+$name = $_POST['name'];
+$shifts = $_POST['shifts'];
 
 // Set up connection variables
 $hostname="localhost";
@@ -13,34 +14,16 @@ if ($conn->connect_errno)
 	echo "Failed to connect to database with error number " . $conn->connect_errno . " (" . $conn->connect_error . ")";
 
 // Preparing SQL statement to get all available events
-if (!($stmt = $conn->prepare("SELECT shiftid, shift_start, shift_end, spots FROM shifts WHERE eventid = ?")))
+if (!($stmt = $conn->prepare("INSERT INTO sign_ups (shiftid, uin) VALUES (?, ?)")))
 	echo "Statement preparation failed with error number " . $conn->errno . " (" . $conn->error . ")";
 
 // Bind parameters to statement
-if (!$stmt->bind_param("s", $id))
+if (!$stmt->bind_param("ss", $id))
 	echo "UIN parameter binding failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
 
 // Execute statement
 if (!$stmt->execute())
 	echo "Event execute failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
-
-// Binding query result
-if (!$stmt->bind_result($id, $start, $end, $spots))
-	echo "Binding name result failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
-
-$i = 0;
-while ($stmt->fetch()) {
-	$array[$i] = array(
-		"id" => $id,
-		"start" => $start,
-		"end" => $end,
-		"spots" => $spots
-	);
-	$i++;
-}
-
-$json = json_encode($array);
-echo $json;
 
 $stmt->close();
 $conn->close();

@@ -1,76 +1,87 @@
 	<br>
-	<h1 style="color:maroon; padding-left:50px">Create Event</h1>
-	<form action="php/create-event.php" method="POST" name="event">
+	<h1 style="color: maroon; text-align: center;">Create Event</h1>
+	<form action="php/create-event.php" method="POST" name="event" style="margin:15pt;">
 
 		<!-- Name Inputs -->
 		<hr>
 		<h3>Event Information</h3>
-		<div class="form-inline">
-			<div class="form-group">
-				<label for="name">Your Name: </label>
-				<input type="text" class="form-control" name="name" id="name" onkeyup="KeyPress(event)"/>
+		<div class="row">
+			<div class="col-xs-6">
+				<div class="form-group">
+					<input type="text" class="form-control" name="name" id="name" placeholder="Your Name" onkeyup="KeyPress(event)"/>
+				</div>
+				<div id="result"></div>
 			</div>
 
-			<div class="form-group">
-				<label for="event_name">Event Name: </label>
-				<input type="text" class="form-control" name="event_name" />
+			<div class="col-xs-6">
+				<div class="form-group">
+					<input type="text" class="form-control" name="event_name" placeholder="Event Name"/>
+				</div>
 			</div>
-			<div id="result"></div>
 		</div>
-		<br>
 
 		<!-- Point Inputs -->
-		<div class="form-inline">
-			<div class="form-group">
-				<label for="points_type">Points Type: </label>
-				<select class="form-control" name="points_type">
-					<option value="fundraising">Fundraising</option>
-					<option value="service">Service</option>
-					<option value="flex">Flex</option>
-				</select>
+		<div class="row">
+			<div class="col-xs-6">
+				<div class="form-group">
+					<select class="form-control" name="points_type">
+						<option value="fundraising">Fundraising</option>
+						<option value="service">Service</option>
+						<option value="flex">Flex</option>
+					</select>
+				</div>
 			</div>
 
-			<div class="form-group">
-				<label for="points">Points per shift: </label>
-				<input type="number" class="form-control" min="1" name="points" />
+			<div class="col-xs-6">
+				<div class="form-group">
+					<input type="number" class="form-control" min="1" name="points" placeholder="Points per shift"/>
+				</div>
 			</div>
 		</div>
-		<br>
 
 		<!-- Date Inputs -->
-		<div class="form-inline">
-			<div class="form-group">
-				<label for="date">Date of Event: </label>
-				<input type="date" class="form-control" name="date">
+		<div class="row">
+			<div class="col-xs-6">
+				<div class="form-group">
+					<label for="date">Date of Event: </label>
+					<input type="date" class="form-control" name="date">
+				</div>
 			</div>
 
-			<div class="form-group">
-				<label for="freeze">Freeze Date: </label>
-				<input type="date" class="form-control" name="freeze">
+			<div class="col-xs-6">
+				<div class="form-group">
+					<label for="freeze">Freeze Date: </label>
+					<input type="date" class="form-control" name="freeze">
+				</div>
 			</div>
 		</div>
-		<br>
 
 		<!-- Shift Inputs -->
+		<hr>
 		<h3>Shifts</h3>
 		<div id="shifts-div">
-			<div class="form-inline">
-				<div class="form-group">
-					<label for="start">Start Time: </label>
-					<input type="time" class="form-control" name="start[]" value="12:00:00">
+			<div class="row">
+				<div class="col-xs-4">
+					<div class="form-group">
+						<label for="start">Start Time: </label>
+						<input type="time" class="form-control" name="start[]" value="12:00:00">
+					</div>
 				</div>
 
-				<div class="form-group">
-					<label for="end">End Time: </label>
-					<input type="time" class="form-control" name="end[]" value="12:00:00">
+				<div class="col-xs-4">
+					<div class="form-group">
+						<label for="end">End Time: </label>
+						<input type="time" class="form-control" name="end[]" value="12:00:00">
+					</div>
 				</div>
 
-				<div class="form-group">
-					<label for="end">Spots Available: </label>
-					<input type="number" class="form-control" name="spots[]">
+				<div class="col-xs-4">
+					<div class="form-group">
+						<label for="spots">Spots:</label>
+						<input type="number" class="form-control" name="spots[]" placeholder="Spots Available">
+					</div>
 				</div>
 			</div>
-			<br>
 		</div>
 
 		<button type="button" class="btn btn-default" onclick="addShift()">

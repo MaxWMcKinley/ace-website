@@ -8,8 +8,11 @@ $.get("../php/get-names.php", function(response) {
 
 // User types into name entry text box
 function KeyPress (e) {
-	var input = document.getElementById("name").value;		// Get what the user has typed so far
-	Autocomplete(e.keyCode, input);
+  var input = document.getElementById("name").value;		// Get what the user has typed so far
+  if (input)
+    Autocomplete(e.keyCode, input);
+  else
+    document.getElementById("result").innerHTML = "";
 }
 
 // Search through dictionary to match against user input
@@ -30,5 +33,6 @@ function Autocomplete(key, input) {
   // Also, only do this if key pressed was not delete or backspace
   if (autoCompleteResult.length == 1 && key != 8 && key != 46) {
 	  document.getElementById("name").value = autoCompleteResult;
+    document.getElementById("result").innerHTML = "";
   }
 }

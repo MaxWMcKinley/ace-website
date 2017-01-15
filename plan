@@ -73,3 +73,11 @@ Event names not working with apostrophes
 Order events and shifts corrently
 
 filter events
+
+Fix shift ids
+
+being able to see other people who are signed up for shifts
+
+account for spots available
+
+add validation states

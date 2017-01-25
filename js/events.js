@@ -34,7 +34,6 @@ $('#eventModal').on('show.bs.modal', function (event) {
   			var start = moment(value.start, 'HH:mm:ss').format('h:mma');
   			var end = moment(value.end, 'HH:mm:ss').format('h:mma');
 
-  			console.log(value.id);
   			shifts += `
 	 		<label class="checkbox-inline">
 	 			<input type="checkbox" value="${value.id}" name="shifts[]">${start} - ${end}

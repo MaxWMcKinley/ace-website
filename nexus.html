@@ -2,9 +2,9 @@
 	<h1 style="text-align: center;">Nexus</h1>
 	<form class="form-inline" onsubmit="return loadNexus();" style="text-align: center;">
 		<div class="input-group">
-	        <input type="text" class="form-control" name="name" id="name" placeholder="Name" onkeyup="KeyPress(event)">
+	        <input type="text" class="form-control" name="name" id="name" placeholder="Name" onkeyup="KeyPress(event)" autofocus>
 		<span class="input-group-btn">
-			<button type="submit" class="btn btn-default" onclick="loadNexus()">Load</button>
+			<button type="submit" class="btn btn-default">Load</button>
 		</span>
 		</div>
 	    <div id="result"></div>
@@ -49,7 +49,48 @@
 	</div>
 	<hr>
 	<h2>Sign Ups</h2>
-	<div id="signups" class="list-group">Enter name to load sign ups</div>
+	<div id="signups" class="list-group">Enter name to load your sign ups</div>
+	<hr>
+	<h2>Events</h2>
+	<div id="myevents" class="list-group">Enter name to load your events</div>
+</div>
+
+<div class="modal fade" id="mySignUpsModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h2 class="modal-title"></h2>
+      </div>
+	  <div class="modal-body">
+	   </div>
+	   <div class="modal-footer">
+		  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		  <button type="submit" onclick="removeAttendee();" class="btn btn-primary">Remove</button>
+	   </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="myEventsModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h2 class="modal-title"></h2>
+      </div>
+	  <div class="modal-body">
+			<form onsubmit="return removeAttendees();">
+		    	<div class="checkbox" id="attendeesDiv"></div>
+				<button type="submit" class="btn btn-primary">Remove</button>
+			<form>
+	   </div>
+	   <div class="modal-footer">
+		  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		  <button type="submit" class="btn btn-primary">Approve</button>
+	   </div>
+    </div>
+  </div>
 </div>
 <br><br><br><br>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.js"></script>

@@ -87,3 +87,5 @@ implement freeze date
 fix the javascript includes especially like event.js
 
 Fix comments
+
+rewrite bootstrap stuff,  add to headers and footers for consistency

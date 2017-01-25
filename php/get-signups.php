@@ -99,7 +99,8 @@ foreach ($array as $value) {
 
 		$events[$row['name']] = array(
 				"id" => $row['id'],
-				"officer_name" => $officer_name,			
+				"officer_name" => $officer_name,
+				"uin" => $uin,		
 				"type" => $row['type'],
 				"points" => $row['points'],			
 				"date" => $row['date'],

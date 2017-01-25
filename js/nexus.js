@@ -55,29 +55,29 @@ function removeAttendee() {
 }
 
 
-// function submitEvent() { 
+function submitEvent() { 
 
-// 	var uins = new Array();
-// 	var eventId = document.getElementById("attendeesDiv").eventId;
+	var uins = new Array();
+	var eventId = document.getElementById("attendeesDiv").eventId;
 
-//    	$("input:checkbox:checked").each(function() {
-//    		uins.push($(this).val());
+   	$("input:checkbox:checked").each(function() {
+   		uins.push($(this).val());
 
-//    		$(this).remove();
-//    		$('label[for="' + this.id + '"]').remove();
-//   	});
+   		$(this).remove();
+   		$('label[for="' + this.id + '"]').remove();
+  	});
 
-//    	$.ajax({
-//             type: "POST",
-//             url: "../php/removeAttendees.php",
-//             data: {uins: JSON.stringify(uins), eventId: eventId},
-//             success: function(response) {
-//               alert( response );
-//                 }
-//           });
+   	$.ajax({
+            type: "POST",
+            url: "../php/submit-event.php",
+            data: {uins: JSON.stringify(uins), eventId: eventId},
+            success: function(response) {
+              alert( response );
+                }
+          });
 
-// 	return false;
-// }
+	return false;
+}
 
 
 $('#mySignUpsModal').on('show.bs.modal', function (event) {

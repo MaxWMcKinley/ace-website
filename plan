@@ -60,8 +60,6 @@ exec views
 	view people below threshold
 	view points list in order and by category
 
-Delete alumni
-
 Fix name autocomplete
 
 Account all the things
@@ -89,3 +87,11 @@ fix the javascript includes especially like event.js
 Fix comments
 
 rewrite bootstrap stuff,  add to headers and footers for consistency
+
+Consider breaking up php files into multiple files and running concurrently especially submit event
+
+database backups
+
+Change text values on nexues after load if there are no events or sign ups
+
+handle the people who didnt show up in submit event

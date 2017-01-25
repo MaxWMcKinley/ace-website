@@ -48,14 +48,14 @@ function removeAttendee() {
             data: {uins: uin, eventId: eventId},
             success: function(response) {
               alert( response );
+              $('#mySignUpsModal').modal('hide');
+              loadNexus();
                 }
           });
-
-	return false;
 }
 
 
-// function removeAttendee() { 
+// function submitEvent() { 
 
 // 	var uins = new Array();
 // 	var eventId = document.getElementById("attendeesDiv").eventId;
@@ -79,6 +79,7 @@ function removeAttendee() {
 // 	return false;
 // }
 
+
 $('#mySignUpsModal').on('show.bs.modal', function (event) {
   var button = $(event.relatedTarget); // Button that triggered the modal
   var modal = $(this);
@@ -94,6 +95,7 @@ $('#mySignUpsModal').on('show.bs.modal', function (event) {
 
   modal.find('.modal-title').text(name + " - " + date);
 })
+
 
 $('#myEventsModal').on('show.bs.modal', function (event) {
   var button = $(event.relatedTarget); // Button that triggered the modal

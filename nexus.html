@@ -63,6 +63,7 @@
         <h2 class="modal-title"></h2>
       </div>
 	  <div class="modal-body">
+	  	Click remove to take yourself off the sign up list for this event.
 	   </div>
 	   <div class="modal-footer">
 		  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -79,16 +80,15 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h2 class="modal-title"></h2>
       </div>
-	  <div class="modal-body">
-			<form onsubmit="return removeAttendees();">
-		    	<div class="checkbox" id="attendeesDiv"></div>
-				<button type="submit" class="btn btn-primary">Remove</button>
-			<form>
-	   </div>
-	   <div class="modal-footer">
-		  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		  <button type="submit" class="btn btn-primary">Approve</button>
-	   </div>
+      <form onsubmit="return removeAttendees();">
+		  <div class="modal-body">
+			    <div class="checkbox" id="attendeesDiv"></div>
+		   </div>
+		   <div class="modal-footer">
+			  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			  <button type="submit" class="btn btn-primary">Approve</button>
+		   </div>
+	   </form>
     </div>
   </div>
 </div>

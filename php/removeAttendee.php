@@ -50,6 +50,8 @@ foreach ($shiftids as $shiftid) {
 		echo "Event execute failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
 }
 
+echo "Succesfully removed from sign up list";
+
 $stmt->close();
 $conn->close();
 ?>

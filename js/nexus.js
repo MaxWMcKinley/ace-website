@@ -28,10 +28,20 @@ function loadNexus() {
 			console.log("service: " + service + " fundraising: " + fundraising + " flex: " + flex);
 	  	});
 
-		if (service > serviceMax)
+		if (service >= serviceMax) {
 			var flexMax = flexMax - (service - serviceMax);
-		if (fundraising > fundraisingMax)
+			document.getElementById("service-check").innerHTML = "Service <span class='glyphicon glyphicon-ok'></span>";
+		}
+
+		if (fundraising >= fundraisingMax) {
 			var flexMax = flexMax - (fundraising - fundraisingMax);
+			document.getElementById("fundraising-check").innerHTML = "Fundraising <span class='glyphicon glyphicon-ok'></span>";
+		}
+		if (flex >= flexMax)
+			document.getElementById("flex-check").innerHTML = "Flex <span class='glyphicon glyphicon-ok'></span>";
+
+		if ((fundraising + service + flex) >= 100) 
+			document.getElementById("total-check").innerHTML = "Total <span class='glyphicon glyphicon-ok'></span>";
 
 		var servicePerc = (service/serviceMax) * 100;
 		var fundraisingPerc = (fundraising/fundraisingMax) * 100;
@@ -46,6 +56,14 @@ function loadNexus() {
   		document.getElementById("service-bar").innerHTML = "" + service;
   		document.getElementById("fundraising-bar").innerHTML = "" + fundraising;
   		document.getElementById("flex-bar").innerHTML = "" + flex;
+
+  		document.getElementById("service-total").style = "min-width: 2em; max-width: 80%; width: " + service + "%;";
+  		document.getElementById("fundraising-total").style = "min-width: 2em; max-width: 70%; width: " + fundraising + "%;";		
+  		document.getElementById("flex-total").style = "min-width: 2em; max-width: 50%; width: " + flex + "%;";	
+
+  		document.getElementById("service-total").innerHTML = "" + service;
+  		document.getElementById("fundraising-total").innerHTML = "" + fundraising;
+  		document.getElementById("flex-total").innerHTML = "" + flex;
 	});
 
 	$.getJSON("../php/get-signups.php", data, function(result){

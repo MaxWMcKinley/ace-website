@@ -89,7 +89,7 @@ if(_POST)
 		$shift_spots = $spots[$key];
 		$shift_id = uniqid($prefix);
 		$prefix++;
-		echo $shift_id;
+
 		if (!$stmt->execute())
 			echo "Shift insert failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
 	}

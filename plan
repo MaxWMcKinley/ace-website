@@ -95,3 +95,7 @@ database backups
 Change text values on nexues after load if there are no events or sign ups
 
 handle the people who didnt show up in submit event
+
+Fix how the system returns from php scripts like create event sign up nexus files
+
+track attendance

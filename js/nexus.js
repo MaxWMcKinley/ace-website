@@ -2,6 +2,52 @@ function loadNexus() {
 	var name = document.getElementById("name").value;
 	var data = "name=" + name;
 
+	console.log("starting load nexus");
+
+	$.getJSON("../php/get-points.php", data, function(result){
+		var service = 0;
+		var fundraising = 0;
+		var flex = 0;
+
+		var serviceMax = 30;
+		var fundraisingMax = 20;
+		var flexMax = 50;
+
+		console.log("returning from php");
+		$.each( result, function( key, value ) {
+			var type = value.type.charAt(0).toUpperCase() + value.type.substr(1);
+			console.log("type: " + type);
+
+			if (type === "Service")
+				service += value.points;
+			if (type === "Fundraising")
+				fundraising += value.points;
+			if (type === "Flex")
+				flex += value.points;
+
+			console.log("service: " + service + " fundraising: " + fundraising + " flex: " + flex);
+	  	});
+
+		if (service > serviceMax)
+			var flexMax = flexMax - (service - serviceMax);
+		if (fundraising > fundraisingMax)
+			var flexMax = flexMax - (fundraising - fundraisingMax);
+
+		var servicePerc = (service/serviceMax) * 100;
+		var fundraisingPerc = (fundraising/fundraisingMax) * 100;
+		var flexPerc = (flex/flexMax) * 100;
+
+		console.log("Perentage. service: " + servicePerc + " fundraising: " + fundraisingPerc + " flex: " + flexPerc);
+
+  		document.getElementById("service-bar").style = "min-width: 2em; max-width: 100%; width: " + servicePerc + "%;";
+  		document.getElementById("fundraising-bar").style = "min-width: 2em; max-width: 100%; width: " + fundraisingPerc + "%;";		
+  		document.getElementById("flex-bar").style = "min-width: 2em; max-width: 100%; width: " + flexPerc + "%;";	
+
+  		document.getElementById("service-bar").innerHTML = "" + service;
+  		document.getElementById("fundraising-bar").innerHTML = "" + fundraising;
+  		document.getElementById("flex-bar").innerHTML = "" + flex;
+	});
+
 	$.getJSON("../php/get-signups.php", data, function(result){
 		var signups = "";
 		$.each( result, function( key, value ) {
@@ -70,7 +116,7 @@ function submitEvent() {
    	$.ajax({
             type: "POST",
             url: "../php/submit-event.php",
-            data: {uins: JSON.stringify(uins), eventId: eventId},
+            data: {uins: JSON.stringify(uins), eventid: eventId},
             success: function(response) {
               alert( response );
                 }

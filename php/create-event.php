@@ -83,12 +83,13 @@ if(_POST)
 	if (!$stmt->bind_param("ssssi", $shift_id, $event_id, $shift_start, $shift_end, $shift_spots))
 		echo "Binding event parameters failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
 
-
+	$prefix = 0;
 	foreach ($start as $key => $shift_start) {
 		$shift_end = $end[$key];
 		$shift_spots = $spots[$key];
-		$shift_id = uniqid();
-
+		$shift_id = uniqid($prefix);
+		$prefix++;
+		echo $shift_id;
 		if (!$stmt->execute())
 			echo "Shift insert failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
 	}

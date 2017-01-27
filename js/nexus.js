@@ -1,8 +1,10 @@
+// --------------------------------------------------------------------------------------------
+// Loads all nexus info for the input name
+// --------------------------------------------------------------------------------------------
+
 function loadNexus() {
 	var name = document.getElementById("name").value;
 	var data = "name=" + name;
-
-	console.log("starting load nexus");
 
 	$.getJSON("../php/get-points.php", data, function(result){
 		var service = 0;
@@ -13,10 +15,8 @@ function loadNexus() {
 		var fundraisingMax = 20;
 		var flexMax = 50;
 
-		console.log("returning from php");
 		$.each( result, function( key, value ) {
 			var type = value.type.charAt(0).toUpperCase() + value.type.substr(1);
-			console.log("type: " + type);
 
 			if (type === "Service")
 				service += value.points;
@@ -24,8 +24,6 @@ function loadNexus() {
 				fundraising += value.points;
 			if (type === "Flex")
 				flex += value.points;
-
-			console.log("service: " + service + " fundraising: " + fundraising + " flex: " + flex);
 	  	});
 
 		if (service >= serviceMax) {
@@ -46,8 +44,6 @@ function loadNexus() {
 		var servicePerc = (service/serviceMax) * 100;
 		var fundraisingPerc = (fundraising/fundraisingMax) * 100;
 		var flexPerc = (flex/flexMax) * 100;
-
-		console.log("Perentage. service: " + servicePerc + " fundraising: " + fundraisingPerc + " flex: " + flexPerc);
 
   		document.getElementById("service-bar").style = "min-width: 2em; max-width: 100%; width: " + servicePerc + "%;";
   		document.getElementById("fundraising-bar").style = "min-width: 2em; max-width: 100%; width: " + fundraisingPerc + "%;";		
@@ -101,8 +97,12 @@ function loadNexus() {
 	return false;
 }
 
-function removeAttendee() { 
 
+// --------------------------------------------------------------------------------------------
+// PHP script launchers
+// --------------------------------------------------------------------------------------------
+
+function removeAttendee() { 
 	var uin = document.getElementById("mySignUpsModal").uin;
 	var eventId = document.getElementById("mySignUpsModal").eventId;
 
@@ -117,7 +117,6 @@ function removeAttendee() {
                 }
           });
 }
-
 
 function submitEvent() { 
 
@@ -144,6 +143,32 @@ function submitEvent() {
 }
 
 
+// --------------------------------------------------------------------------------------------
+// Miscellaneous Functions
+// --------------------------------------------------------------------------------------------
+
+// Get today's date
+function today() {
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1;	//January is 0
+	var yyyy = today.getFullYear();
+
+	if(dd<10) 
+	    dd='0'+dd
+
+	if(mm<10) 
+	    mm='0'+mm
+
+	today = yyyy+'-'+mm+'/'+dd;
+
+	return today
+}
+
+// --------------------------------------------------------------------------------------------
+// Modal Click Handlers
+// --------------------------------------------------------------------------------------------
+
 $('#mySignUpsModal').on('show.bs.modal', function (event) {
   var button = $(event.relatedTarget); // Button that triggered the modal
   var modal = $(this);
@@ -153,6 +178,12 @@ $('#mySignUpsModal').on('show.bs.modal', function (event) {
   var eventId = button.data('id');
   var uin = button.data('uin');
   var date = button.data('date');
+  var freeze = button.data('freeze');
+
+  var todayDate = today();
+  if (todayDate >= freeze) {
+  		document.getElementById("remove-button").disabled = "disabled";
+   }
 
   document.getElementById("mySignUpsModal").uin = uin;
   document.getElementById("mySignUpsModal").eventId = eventId;

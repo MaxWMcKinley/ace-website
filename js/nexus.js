@@ -94,6 +94,16 @@ function loadNexus() {
 	  	});
 	});
 
+
+   	$.ajax({
+            type: "GET",
+            url: "../php/get-attendance.php",
+            data: data,
+            success: function(response) {
+             	document.getElementById("attendance").innerHTML = response + " out of 1";
+            }
+    });
+
 	return false;
 }
 
@@ -115,7 +125,7 @@ function removeAttendee() {
               $('#mySignUpsModal').modal('hide');
               loadNexus();
                 }
-          });
+    });
 }
 
 function submitEvent() { 
@@ -142,7 +152,19 @@ function submitEvent() {
 	return false;
 }
 
+function signIn() {
+	var name = document.getElementById("name").value;
+	var data = "name=" + name;
 
+   	$.ajax({
+        type: "GET",
+        url: "../php/sign-in.php",
+        data: data,
+        success: function(response) {
+             document.getElementById("attendance").innerHTML = response + " out of 1";
+        }
+    });
+}
 // --------------------------------------------------------------------------------------------
 // Miscellaneous Functions
 // --------------------------------------------------------------------------------------------
@@ -155,12 +177,12 @@ function today() {
 	var yyyy = today.getFullYear();
 
 	if(dd<10) 
-	    dd='0'+dd
+	    dd='0'+dd;
 
 	if(mm<10) 
-	    mm='0'+mm
+	    mm='0'+mm;
 
-	today = yyyy+'-'+mm+'/'+dd;
+	today = yyyy+'-'+mm+'-'+dd;
 
 	return today
 }
@@ -181,6 +203,7 @@ $('#mySignUpsModal').on('show.bs.modal', function (event) {
   var freeze = button.data('freeze');
 
   var todayDate = today();
+  console.log("today: " + todayDate + " freeze: " + freeze);
   if (todayDate >= freeze) {
   		document.getElementById("remove-button").disabled = "disabled";
    }

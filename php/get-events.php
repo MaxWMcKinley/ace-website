@@ -1,5 +1,9 @@
 <?php
 
+// --------------------------------------------------------------------------------------------
+// Connect to database
+// --------------------------------------------------------------------------------------------
+
 // Set up connection variables
 $hostname="localhost";
 $username="acesan7_max";
@@ -11,39 +15,38 @@ $conn = new mysqli($hostname, $username, $password, $dbname);
 if ($conn->connect_errno)
 	echo "Failed to connect to database with error number " . $conn->connect_errno . " (" . $conn->connect_error . ")";
 
-// Preparing SQL statement to get all available events
+
+// --------------------------------------------------------------------------------------------
+// Retrieving all available events 
+// --------------------------------------------------------------------------------------------
+
 if (!($stmt = $conn->prepare("SELECT * FROM events")))
-	echo "Statement preparation failed with error number " . $conn->errno . " (" . $conn->error . ")";
+	echo "Select events preparation failed with error number " . $conn->errno . " (" . $conn->error . ")";
 
-// Execute statement
 if (!$stmt->execute())
-	echo "Event execute failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
+	echo "Select events execute failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
 
-// Storing query result
 $result = $stmt->get_result();
 	
-// Preparing SQL statement to get all available events
+// Also getting the name of the officer for each event
 if (!($name_stmt = $conn->prepare("SELECT first_name, last_name FROM members WHERE uin = ?")))
-	echo "Statement preparation failed with error number " . $conn->errno . " (" . $conn->error . ")";
+	echo "Select officer name preparation failed with error number " . $conn->errno . " (" . $conn->error . ")";
 
-// Creating array of arrays of the events
 while ($row = $result->fetch_assoc()) {
-
-	// Bind parameters to statement
 	if (!$name_stmt->bind_param("s", $row['uin']))
-		echo "UIN parameter binding failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
+		echo "Select officer name parameter binding failed with error number " . $name_stmt->errno . " (" . $stmt->error . ")";
 
-	// Execute statement
 	if (!$name_stmt->execute())
-		echo "Name execute failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
+		echo "Select officer name execute failed with error number " . $name_stmt->errno . " (" . $stmt->error . ")";
 
-	// Binding query result
 	if (!$name_stmt->bind_result($first_name, $last_name))
-		echo "Binding name result failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
+		echo "Select officer name result binding failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
 
+	// Stitch officer's name together
 	while ($name_stmt->fetch())
 		$officer_name = $first_name . " " . $last_name;
 
+	// Generate 2 dimensional array containing event information
 	$array[$row['name']] = array(
 			"id" => $row['id'],
 			"officer_name" => $officer_name,			
@@ -54,7 +57,11 @@ while ($row = $result->fetch_assoc()) {
 		);
 }
 
-// Encoding the array and returning
+
+// --------------------------------------------------------------------------------------------
+// JSON encode the array, return it and close all connections
+// --------------------------------------------------------------------------------------------
+
 $json = json_encode($array);
 echo $json;
 

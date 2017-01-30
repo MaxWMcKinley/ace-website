@@ -107,3 +107,7 @@ progress bars on phone dont fill
 location for events
 
 access codes for security: member, officer, exec
+
+handle the two autocompletes better
+
+store the last time everyone updated attendance and lock it to once a week also add gps location and also lock it outside meeting times

@@ -1,5 +1,15 @@
 <?php
+
+// --------------------------------------------------------------------------------------------
+// Store input parameters 
+// --------------------------------------------------------------------------------------------
+
 $id = $_GET['id'];
+
+
+// --------------------------------------------------------------------------------------------
+// Connect to database
+// --------------------------------------------------------------------------------------------
 
 // Set up connection variables
 $hostname="localhost";
@@ -12,22 +22,24 @@ $conn = new mysqli($hostname, $username, $password, $dbname);
 if ($conn->connect_errno)
 	echo "Failed to connect to database with error number " . $conn->connect_errno . " (" . $conn->connect_error . ")";
 
-// Preparing SQL statement to get all available events
+
+// --------------------------------------------------------------------------------------------
+// Gets shift info for the event
+// --------------------------------------------------------------------------------------------
+
 if (!($stmt = $conn->prepare("SELECT shiftid, shift_start, shift_end, spots FROM shifts WHERE eventid = ?")))
-	echo "Statement preparation failed with error number " . $conn->errno . " (" . $conn->error . ")";
+	echo "Select shift preparation failed with error number " . $conn->errno . " (" . $conn->error . ")";
 
-// Bind parameters to statement
 if (!$stmt->bind_param("s", $id))
-	echo "UIN parameter binding failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
+	echo "Select shift parameter binding failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
 
-// Execute statement
 if (!$stmt->execute())
-	echo "Event execute failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
+	echo "Select shift execute failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
 
-// Binding query result
 if (!$stmt->bind_result($id, $start, $end, $spots))
-	echo "Binding name result failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
+	echo "Select shift result binding failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
 
+// Generate array to store shift information
 $i = 0;
 while ($stmt->fetch()) {
 	$array[$i] = array(
@@ -38,6 +50,11 @@ while ($stmt->fetch()) {
 	);
 	$i++;
 }
+
+
+// --------------------------------------------------------------------------------------------
+// JSON encode array, return it and close all connections
+// --------------------------------------------------------------------------------------------
 
 $json = json_encode($array);
 echo $json;

@@ -161,7 +161,11 @@ function signIn() {
         url: "../php/sign-in.php",
         data: data,
         success: function(response) {
-             document.getElementById("attendance").innerHTML = response + " out of 1";
+        	if (response !== "0")
+     	      	document.getElementById("attendance").innerHTML = response + " out of 1";
+        	else
+        		alert("You are not allowed to sign up at this time, contact Max if you believe this is an error");
+
         }
     });
 }

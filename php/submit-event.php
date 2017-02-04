@@ -4,7 +4,7 @@
 // Store input parameters 
 // --------------------------------------------------------------------------------------------
 
-// $uins = $_POST['uins'];
+$uins = $_POST['uins'];
 $eventid = $_POST['eventid'];
 
 
@@ -22,11 +22,6 @@ $dbname="acesan7_db";
 $conn = new mysqli($hostname, $username, $password, $dbname);
 if ($conn->connect_errno)
 	echo "Failed to connect to database with error number " . $conn->connect_errno . " (" . $conn->connect_error . ")";
-
-
-// --------------------------------------------------------------------------------------------
-// Handle people who didnt show up 
-// --------------------------------------------------------------------------------------------
 
 
 
@@ -115,6 +110,17 @@ foreach ($shiftids as $shift) {
 
 		$i++;
 	}
+}
+
+
+// --------------------------------------------------------------------------------------------
+// Handle people who didnt show up 
+// --------------------------------------------------------------------------------------------
+
+$uins = json_decode($uins, true);
+
+foreach ($uins as $skipper) {
+	$attendees[$skipper] = -($attendees[$skipper]);
 }
 
 

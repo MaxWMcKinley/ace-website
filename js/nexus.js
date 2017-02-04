@@ -145,7 +145,7 @@ function submitEvent() {
             url: "../php/submit-event.php",
             data: {uins: JSON.stringify(uins), eventid: eventId},
             success: function(response) {
-              alert( response );
+              alert( "Event Submission Complete " + response );
                 }
           });
 

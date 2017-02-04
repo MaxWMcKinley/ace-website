@@ -115,3 +115,5 @@ store the last time everyone updated attendance and lock it to once a week also 
 make the "out of" on attendence page update automatically
 
 fix flex points on total progress bar
+
+be able to delete events in nexus

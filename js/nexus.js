@@ -4,17 +4,34 @@
 
 function loadNexus() {
 	var name = document.getElementById("name").value;
+
+	getPoints(name);
+	getAttendance(name);
+	getSignups(name);
+	getEvents(name);
+
+	return false;
+}
+
+
+// --------------------------------------------------------------------------------------------
+// Getter Functions
+// --------------------------------------------------------------------------------------------
+
+function getPoints(name) {
 	var data = "name=" + name;
 
+	var service = 0;
+	var fundraising = 0;
+	var flex = 0;
+
+	var serviceMax = 30;
+	var fundraisingMax = 20;
+	var flexMax = 50;
+
 	$.getJSON("../php/get-points.php", data, function(result){
-		var service = 0;
-		var fundraising = 0;
-		var flex = 0;
 
-		var serviceMax = 30;
-		var fundraisingMax = 20;
-		var flexMax = 50;
-
+		// Total up all of the points for each category
 		$.each( result, function( key, value ) {
 			var type = value.type.charAt(0).toUpperCase() + value.type.substr(1);
 
@@ -24,87 +41,102 @@ function loadNexus() {
 				fundraising += value.points;
 			if (type === "Flex")
 				flex += value.points;
-	  	});
+		});
 
+		// Calculate values for progress bars
 		if (service >= serviceMax) {
 			var flexMax = flexMax - (service - serviceMax);
-			document.getElementById("service-check").innerHTML = "Service <span class='glyphicon glyphicon-ok'></span>";
+			document.getElementById("service-check").innerHTML = "Service <span class='glyphicon glyphicon-ok'></span>";	// Add checkmark if this category is complete
 		}
 
 		if (fundraising >= fundraisingMax) {
 			var flexMax = flexMax - (fundraising - fundraisingMax);
-			document.getElementById("fundraising-check").innerHTML = "Fundraising <span class='glyphicon glyphicon-ok'></span>";
+			document.getElementById("fundraising-check").innerHTML = "Fundraising <span class='glyphicon glyphicon-ok'></span>";	// Add checkmark if this category is complete
 		}
 		if (flex >= flexMax)
-			document.getElementById("flex-check").innerHTML = "Flex <span class='glyphicon glyphicon-ok'></span>";
+			document.getElementById("flex-check").innerHTML = "Flex <span class='glyphicon glyphicon-ok'></span>";	// Add checkmark if this category is complete
 
-		if ((fundraising + service + flex) >= 100) 
-			document.getElementById("total-check").innerHTML = "Total <span class='glyphicon glyphicon-ok'></span>";
+		if ((fundraising + service + flex) >= 100)
+			document.getElementById("total-check").innerHTML = "Total <span class='glyphicon glyphicon-ok'></span>";	// Add checkmark if this category is complete
 
 		var servicePerc = (service/serviceMax) * 100;
 		var fundraisingPerc = (fundraising/fundraisingMax) * 100;
 		var flexPerc = (flex/flexMax) * 100;
 
-  		document.getElementById("service-bar").style = "min-width: 2em; max-width: 100%; width: " + servicePerc + "%;";
-  		document.getElementById("fundraising-bar").style = "min-width: 2em; max-width: 100%; width: " + fundraisingPerc + "%;";		
-  		document.getElementById("flex-bar").style = "min-width: 2em; max-width: 100%; width: " + flexPerc + "%;";	
+		// Fill in progress bars
+		document.getElementById("service-bar").style = "min-width: 2em; max-width: 100%; width: " + servicePerc + "%;";
+		document.getElementById("fundraising-bar").style = "min-width: 2em; max-width: 100%; width: " + fundraisingPerc + "%;";
+		document.getElementById("flex-bar").style = "min-width: 2em; max-width: 100%; width: " + flexPerc + "%;";
 
-  		document.getElementById("service-bar").innerHTML = "" + service;
-  		document.getElementById("fundraising-bar").innerHTML = "" + fundraising;
-  		document.getElementById("flex-bar").innerHTML = "" + flex;
+		document.getElementById("service-bar").innerHTML = "" + service;
+		document.getElementById("fundraising-bar").innerHTML = "" + fundraising;
+		document.getElementById("flex-bar").innerHTML = "" + flex;
 
-  		document.getElementById("service-total").style = "min-width: 2em; max-width: 80%; width: " + service + "%;";
-  		document.getElementById("fundraising-total").style = "min-width: 2em; max-width: 70%; width: " + fundraising + "%;";		
-  		document.getElementById("flex-total").style = "min-width: 2em; max-width: 50%; width: " + flex + "%;";	
+		document.getElementById("service-total").style = "min-width: 2em; max-width: 80%; width: " + service + "%;";
+		document.getElementById("fundraising-total").style = "min-width: 2em; max-width: 70%; width: " + fundraising + "%;";
+		document.getElementById("flex-total").style = "min-width: 2em; max-width: 50%; width: " + flex + "%;";
 
-  		document.getElementById("service-total").innerHTML = "" + service;
-  		document.getElementById("fundraising-total").innerHTML = "" + fundraising;
-  		document.getElementById("flex-total").innerHTML = "" + flex;
+		document.getElementById("service-total").innerHTML = "" + service;
+		document.getElementById("fundraising-total").innerHTML = "" + fundraising;
+		document.getElementById("flex-total").innerHTML = "" + flex;
 	});
+}
+
+function getAttendance(name) {
+	var data = "name=" + name;
+
+	$.ajax({
+		type: "GET",
+		url: "../php/get-attendance.php",
+		data: data,
+		success: function(response) {
+			document.getElementById("attendance").innerHTML = response + " out of 2";
+		}
+	});
+}
+
+function getSignups(name) {
+	var data = "name=" + name;
 
 	$.getJSON("../php/get-signups.php", data, function(result){
 		var signups = "";
 		$.each( result, function( key, value ) {
 			var date = moment(value.date, 'YYYY-MM-D').format('MMM Do');
 			var type = value.type.charAt(0).toUpperCase() + value.type.substr(1);
-	  		signups += `
+			signups += `
 				<button type='button' class='list-group-item' data-toggle='modal' data-target='#mySignUpsModal' data-name='${key}' data-id='${value.id}' data-uin='${value.uin}' data-officername='${value.officer_name}' data-date='${date}' data-freeze='${value.freeze}' data-type='${type}' data-points='${value.points}'>
 					<span class='badge'>${type}</span>
 					<h2 class='list-group-item-heading'>${key}</h2>
 						<p class='list-group-item-text'>${date}  |  ${value.points} points</p>
 				</button>`;
+		});
 
-	  		document.getElementById("signups").innerHTML = signups;	
-	  	});
+		if(signups) {
+			document.getElementById("signups").innerHTML = signups;
+		}
+		else {
+			document.getElementById("signups").innerHTML = "You have not signed up for any events";
+		}
 	});
+}
+
+function getEvents(name) {
+	var data = "name=" + name;
 
 	$.getJSON("../php/get-createdevents.php", data, function(result){
 		var myevents = "";
 		$.each( result, function( key, value ) {
 			var date = moment(value.date, 'YYYY-MM-D').format('MMM Do');
 			var type = value.type.charAt(0).toUpperCase() + value.type.substr(1);
-	  		myevents += `
+			myevents += `
 				<button type='button' class='list-group-item' data-toggle='modal' data-target='#myEventsModal' data-name='${key}' data-id='${value.id}' data-officername='${value.officer_name}' data-date='${date}' data-freeze='${value.freeze}' data-type='${type}' data-points='${value.points}'>
 					<span class='badge'>${type}</span>
 					<h2 class='list-group-item-heading'>${key}</h2>
 						<p class='list-group-item-text'>${date}  |  ${value.points} points</p>
 				</button>`;
-
-	  		document.getElementById("myevents").innerHTML = myevents;	
-	  	});
+		});
+		document.getElementById("myevents").innerHTML = myevents;
 	});
-
-
-   	$.ajax({
-            type: "GET",
-            url: "../php/get-attendance.php",
-            data: data,
-            success: function(response) {
-             	document.getElementById("attendance").innerHTML = response + " out of 2";
-            }
-    });
-
-	return false;
 }
 
 
@@ -112,7 +144,7 @@ function loadNexus() {
 // PHP script launchers
 // --------------------------------------------------------------------------------------------
 
-function removeAttendee() { 
+function removeAttendee() {
 	var uin = document.getElementById("mySignUpsModal").uin;
 	var eventId = document.getElementById("mySignUpsModal").eventId;
 
@@ -121,14 +153,15 @@ function removeAttendee() {
             url: "../php/removeAttendee.php",
             data: {uins: uin, eventId: eventId},
             success: function(response) {
-              alert( response );
+              //alert( response );
               $('#mySignUpsModal').modal('hide');
-              loadNexus();
-                }
+				  var name = document.getElementById("name").value;
+              getSignups(name);
+            }
     });
 }
 
-function submitEvent() { 
+function submitEvent() {
 
 	var uins = new Array();
 	var eventId = document.getElementById("attendeesDiv").eventId;
@@ -169,6 +202,8 @@ function signIn() {
         }
     });
 }
+
+
 // --------------------------------------------------------------------------------------------
 // Miscellaneous Functions
 // --------------------------------------------------------------------------------------------
@@ -180,16 +215,17 @@ function today() {
 	var mm = today.getMonth()+1;	//January is 0
 	var yyyy = today.getFullYear();
 
-	if(dd<10) 
+	if(dd<10)
 	    dd='0'+dd;
 
-	if(mm<10) 
+	if(mm<10)
 	    mm='0'+mm;
 
 	today = yyyy+'-'+mm+'-'+dd;
 
 	return today
 }
+
 
 // --------------------------------------------------------------------------------------------
 // Modal Click Handlers
@@ -200,7 +236,7 @@ $('#mySignUpsModal').on('show.bs.modal', function (event) {
   var modal = $(this);
 
   // Extract info from data-* attributes
-  var name = button.data('name'); 
+  var name = button.data('name');
   var eventId = button.data('id');
   var uin = button.data('uin');
   var date = button.data('date');
@@ -224,7 +260,7 @@ $('#myEventsModal').on('show.bs.modal', function (event) {
   var modal = $(this);
 
   // Extract info from data-* attributes
-  var name = button.data('name'); 
+  var name = button.data('name');
   var eventId = button.data('id');
   var date = button.data('date');
 

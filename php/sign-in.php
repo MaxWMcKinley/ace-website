@@ -80,8 +80,8 @@ if ($last != NULL) {
 	$difference = time() - strtotime($last);
 	$days = $difference / 60 / 60 / 24;
 
-	if ($days < 8)
-		$permitted = false;
+	//if ($days < 8)
+		//$permitted = false;
 }
 
 

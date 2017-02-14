@@ -83,7 +83,6 @@ while ($stmt->fetch()) {
 	$i++;
 }
 
-
 // --------------------------------------------------------------------------------------------
 // Get the uins of people who went to the event
 // --------------------------------------------------------------------------------------------
@@ -127,16 +126,17 @@ foreach ($uins as $skipper) {
 // --------------------------------------------------------------------------------------------
 // Add attendees to the points table
 // --------------------------------------------------------------------------------------------
+if ($attendees) {	// Check if no one went to this event
+	if (!($stmt = $conn->prepare("INSERT INTO points (eventid, uin, points) VALUES (?, ?, ?)")))
+		echo "Insert points preparation failed with error number " . $conn->errno . " (" . $conn->error . ")";
 
-if (!($stmt = $conn->prepare("INSERT INTO points (eventid, uin, points) VALUES (?, ?, ?)")))
-	echo "Insert points preparation failed with error number " . $conn->errno . " (" . $conn->error . ")";
+	if (!$stmt->bind_param("ssi", $eventid, $uin, $point_amount))
+		echo "Insert points parameter binding failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
 
-if (!$stmt->bind_param("ssi", $eventid, $uin, $point_amount))
-	echo "Insert points parameter binding failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
-
-foreach ($attendees as $uin => $point_amount) {
-	if (!$stmt->execute())
-		echo "Insert points execute failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
+	foreach ($attendees as $uin => $point_amount) {
+		if (!$stmt->execute())
+			echo "Insert points execute failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
+	}
 }
 
 

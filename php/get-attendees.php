@@ -34,31 +34,34 @@ while ($stmt->fetch()) {
 	$i++;
 }
 
-// Preparing SQL statement to get all available events
-if (!($stmt = $conn->prepare("SELECT first_name, last_name FROM members WHERE uin = ?")))
-	echo "Statement preparation failed with error number " . $conn->errno . " (" . $conn->error . ")";
+$json = 0;
+if ($uins) {
+	// Preparing SQL statement to get all available events
+	if (!($stmt = $conn->prepare("SELECT first_name, last_name FROM members WHERE uin = ?")))
+		echo "Statement preparation failed with error number " . $conn->errno . " (" . $conn->error . ")";
 
-// Bind parameters to statement
-if (!$stmt->bind_param("s", $uin))
-	echo "UIN parameter binding failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
+	// Bind parameters to statement
+	if (!$stmt->bind_param("s", $uin))
+		echo "UIN parameter binding failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
 
-$i = 0;
-foreach ($uins as $uin) {
-	// Execute statement
-	if (!$stmt->execute())
-		echo "Event execute failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
+	$i = 0;
+	foreach ($uins as $uin) {
+		// Execute statement
+		if (!$stmt->execute())
+			echo "Event execute failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
 
-	// Binding query result
-	if (!$stmt->bind_result($first_name, $last_name))
-		echo "Binding name result failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
+		// Binding query result
+		if (!$stmt->bind_result($first_name, $last_name))
+			echo "Binding name result failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
 
-	while ($stmt->fetch()) {
-		$names[$uin] = $first_name . " " . $last_name;
-		$i++;
+		while ($stmt->fetch()) {
+			$names[$uin] = $first_name . " " . $last_name;
+			$i++;
+		}
 	}
+	$json = json_encode($names);
 }
 
-$json = json_encode($names);
 echo $json;
 
 $stmt->close();

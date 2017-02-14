@@ -100,7 +100,7 @@ function loadNexus() {
             url: "../php/get-attendance.php",
             data: data,
             success: function(response) {
-             	document.getElementById("attendance").innerHTML = response + " out of 2";
+             	document.getElementById("attendance").innerHTML = response + " out of 3";
             }
     });
 
@@ -161,8 +161,9 @@ function signIn() {
         url: "../php/sign-in.php",
         data: data,
         success: function(response) {
-        	if (1) //response !== "0")
-     	      	document.getElementById("attendance").innerHTML = response + " out of 2";
+        	console.log(" response: " + response);
+        	if (response !== "0")
+     	      	document.getElementById("attendance").innerHTML = response + " out of 3";
         	else
         		alert("You are not allowed to sign up at this time, contact Max if you believe this is an error");
 
@@ -240,8 +241,8 @@ $('#myEventsModal').on('show.bs.modal', function (event) {
 	 		id++;
 		});
 
-  		document.getElementById("attendeesDiv").eventId = eventId;
 		document.getElementById("attendeesDiv").innerHTML = attendees;
+  		document.getElementById("attendeesDiv").eventId = eventId;
   });
 
   modal.find('.modal-title').text(name + " - " + date)

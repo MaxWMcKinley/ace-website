@@ -35,7 +35,7 @@ while ($stmt->fetch()) {
 }
 
 $json = 0;
-if ($uins) {
+if ($uins != 0) {
 	// Preparing SQL statement to get all available events
 	if (!($stmt = $conn->prepare("SELECT first_name, last_name FROM members WHERE uin = ?")))
 		echo "Statement preparation failed with error number " . $conn->errno . " (" . $conn->error . ")";

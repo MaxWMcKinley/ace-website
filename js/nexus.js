@@ -28,31 +28,41 @@ function getPoints(name) {
 	var serviceMax = 30;
 	var fundraisingMax = 20;
 	var flexMax = 50;
+		console.log("flex: " + flex + " flexMax: " + flexMax);
 
 	$.getJSON("../php/get-points.php", data, function(result){
+		console.log("flex: " + flex + " flexMax: " + flexMax);
 
 		// Total up all of the points for each category
 		$.each( result, function( key, value ) {
+					console.log("flex: " + flex + " flexMax: " + flexMax);
+
 			var type = value.type.charAt(0).toUpperCase() + value.type.substr(1);
 
 			if (type === "Service")
 				service += value.points;
+
 			if (type === "Fundraising")
 				fundraising += value.points;
+
 			if (type === "Flex")
 				flex += value.points;
 		});
+		flexMax = 50;
+		console.log("flex: " + flex + " flexMax: " + flexMax);
 
 		// Calculate values for progress bars
 		if (service >= serviceMax) {
 			var flexMax = flexMax - (service - serviceMax);
 			document.getElementById("service-check").innerHTML = "Service <span class='glyphicon glyphicon-ok'></span>";	// Add checkmark if this category is complete
-		}
+		}		
+
 
 		if (fundraising >= fundraisingMax) {
 			var flexMax = flexMax - (fundraising - fundraisingMax);
 			document.getElementById("fundraising-check").innerHTML = "Fundraising <span class='glyphicon glyphicon-ok'></span>";	// Add checkmark if this category is complete
 		}
+
 		if (flex >= flexMax)
 			document.getElementById("flex-check").innerHTML = "Flex <span class='glyphicon glyphicon-ok'></span>";	// Add checkmark if this category is complete
 
@@ -90,7 +100,7 @@ function getAttendance(name) {
 		url: "../php/get-attendance.php",
 		data: data,
 		success: function(response) {
-			document.getElementById("attendance").innerHTML = response + " out of 2";
+			document.getElementById("attendance").innerHTML = response + " out of 4";
 		}
 	});
 }
@@ -135,17 +145,13 @@ function getEvents(name) {
 						<p class='list-group-item-text'>${date}  |  ${value.points} points</p>
 				</button>`;
 		});
-		document.getElementById("myevents").innerHTML = myevents;
+		if(myevents) {
+			document.getElementById("myevents").innerHTML = myevents;
+		}
+		else {
+			document.getElementById("myevents").innerHTML = "You are not the owner for any events";
+		}
 	});
-
-   	$.ajax({
-            type: "GET",
-            url: "../php/get-attendance.php",
-            data: data,
-            success: function(response) {
-             	document.getElementById("attendance").innerHTML = response + " out of 3";
-            }
-    });
 
 	return false;
 }
@@ -207,7 +213,7 @@ function signIn() {
         success: function(response) {
         	console.log(" response: " + response);
         	if (response !== "0")
-     	      	document.getElementById("attendance").innerHTML = response + " out of 3";
+     	      	document.getElementById("attendance").innerHTML = response + " out of 4";
         	else
         		alert("You are not allowed to sign up at this time, contact Max if you believe this is an error");
 

@@ -1,6 +1,5 @@
 $.getJSON("../php/get-events.php", function(result){
 	var events = "";
-  console.log("result: " + result["Coed Soccer Game"].date);
 
   var tuples = [];
 
@@ -9,7 +8,6 @@ $.getJSON("../php/get-events.php", function(result){
   tuples.sort(function(a, b) {
       a = a[1];
       b = b[1];
-      console.log("a: " + a.date + " b: " + b.date + " diff: " + (Date.parse(a.date) > Date.parse(b.date)));
       return Date.parse(a.date) - Date.parse(b.date);
   });
 
@@ -17,7 +15,6 @@ $.getJSON("../php/get-events.php", function(result){
     var key = tuples[i][0];
     var value = tuples[i][1];
 
-    console.log("value: " + value.date);
     var date = moment(value.date, 'YYYY-MM-D').format('MMM Do');
     var type = value.type.charAt(0).toUpperCase() + value.type.substr(1);
       events += `
@@ -36,7 +33,6 @@ function filterAll() {
 
   for (i = 0; i < events.length; i++) {
     events[i].style.display = '';
-    console.log(events[i]);
   }
   return false;
 }

@@ -55,7 +55,7 @@ function getPoints(name) {
 		if (service >= serviceMax) {
 			var flexMax = flexMax - (service - serviceMax);
 			document.getElementById("service-check").innerHTML = "Service <span class='glyphicon glyphicon-ok'></span>";	// Add checkmark if this category is complete
-		}		
+		}
 
 
 		if (fundraising >= fundraisingMax) {
@@ -100,7 +100,7 @@ function getAttendance(name) {
 		url: "../php/get-attendance.php",
 		data: data,
 		success: function(response) {
-			document.getElementById("attendance").innerHTML = response + " out of 4";
+			document.getElementById("attendance").innerHTML = response + " out of 6";
 		}
 	});
 }
@@ -213,7 +213,7 @@ function signIn() {
         success: function(response) {
         	console.log(" response: " + response);
         	if (response !== "0")
-     	      	document.getElementById("attendance").innerHTML = response + " out of 4";
+     	      	document.getElementById("attendance").innerHTML = response + " out of 6";
         	else
         		alert("You are not allowed to sign up at this time, contact Max if you believe this is an error");
 

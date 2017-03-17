@@ -28,28 +28,38 @@ function getPoints(name) {
 	var serviceMax = 30;
 	var fundraisingMax = 20;
 	var flexMax = 50;
-		console.log("flex: " + flex + " flexMax: " + flexMax);
+
+	var serviceContent = "";
+	var fundraisingContent = "";
+	var flexContent = "";
 
 	$.getJSON("../php/get-points.php", data, function(result){
-		console.log("flex: " + flex + " flexMax: " + flexMax);
 
 		// Total up all of the points for each category
 		$.each( result, function( key, value ) {
-					console.log("flex: " + flex + " flexMax: " + flexMax);
-
 			var type = value.type.charAt(0).toUpperCase() + value.type.substr(1);
 
-			if (type === "Service")
+			console.log("Event: " + value.name + " points: " + value.points);
+
+			if (type === "Service") {
 				service += value.points;
+				serviceContent += value.name + ": " + value.points + " points<br>";
+			}
 
-			if (type === "Fundraising")
+			if (type === "Fundraising") {
 				fundraising += value.points;
+				fundraisingContent += value.name + ": " + value.points + " points<br>";
+			}
 
-			if (type === "Flex")
+			if (type === "Flex") {
 				flex += value.points;
+				flexContent += value.name + ": " + value.points + " points<br>";
+			}
 		});
 		flexMax = 50;
-		console.log("flex: " + flex + " flexMax: " + flexMax);
+		$('#service-bar').popover({content: serviceContent, html: true});
+		$('#fundraising-bar').popover({content: fundraisingContent, html: true});
+		$('#flex-bar').popover({content: flexContent, html: true});
 
 		// Calculate values for progress bars
 		if (service >= serviceMax) {

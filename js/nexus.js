@@ -9,6 +9,7 @@ function loadNexus() {
 	getAttendance(name);
 	getSignups(name);
 	getEvents(name);
+	probationCheck(name);
 
 	return false;
 }
@@ -166,6 +167,20 @@ function getEvents(name) {
 	return false;
 }
 
+function probationCheck(name) {
+	var data = "name=" + name;
+
+	$.ajax({
+			type: "GET",
+			url: "../php/check-probation.php",
+			data: data,
+			success: function(response) {
+			  if(response == 1)
+			  	document.getElementById("probation").style.display = '';
+			}
+	});
+}
+
 
 // --------------------------------------------------------------------------------------------
 // PHP script launchers
@@ -180,12 +195,11 @@ function removeAttendee() {
             url: "../php/removeAttendee.php",
             data: {uins: uin, eventId: eventId},
             success: function(response) {
-              //alert( response );
               $('#mySignUpsModal').modal('hide');
 				  var name = document.getElementById("name").value;
               getSignups(name);
             }
-    });
+    	});
 }
 
 function submitEvent() {

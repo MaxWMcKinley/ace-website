@@ -100,7 +100,7 @@ function getAttendance(name) {
 		url: "../php/get-attendance.php",
 		data: data,
 		success: function(response) {
-			document.getElementById("attendance").innerHTML = response + " out of 4";
+			document.getElementById("attendance").innerHTML = response + " out of 5";
 		}
 	});
 }
@@ -213,7 +213,7 @@ function signIn() {
         success: function(response) {
         	console.log(" response: " + response);
         	if (response !== "0")
-     	      	document.getElementById("attendance").innerHTML = response + " out of 4";
+     	      	document.getElementById("attendance").innerHTML = response + " out of 5";
         	else
         		alert("You are not allowed to sign up at this time, contact Max if you believe this is an error");
 

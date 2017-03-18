@@ -1,48 +1,68 @@
-<h1 style="text-align: center;">Events</h1>
+<div class="container-fluid">
 
-<div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="filter" data-toggle="dropdown">
-    Filter
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="filter">
-    <li><a href="javascript: filterAll();">All</a></li>
-    <li><a href="javascript: filterService();">Service</a></li>
-    <li><a href="javascript: filterFundraising();">Fundraising</a></li>
-    <li><a href="javascript: filterFlex();">Flex</a></li>
-  </ul>
-</div>
-<br>
+<!-- Header -->
+  <div class="row">
+    <div class="col-xs-12">
+      <h1 style="text-align: center;">Events</h1>
+    </div> <!-- column -->
+  </div> <!-- row -->
 
-<div id="events" class="list-group"></div>
+<!-- Filters -->
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="filter" data-toggle="dropdown">
+          Filter
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="filter">
+          <li><a href="javascript: filterAll();">All</a></li>
+          <li><a href="javascript: filterService();">Service</a></li>
+          <li><a href="javascript: filterFundraising();">Fundraising</a></li>
+          <li><a href="javascript: filterFlex();">Flex</a></li>
+        </ul>
+      </div> <!-- dropdown -->
+    </div> <!-- column -->
+  </div> <!-- row -->
+  <br>
 
-<div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h2 class="modal-title"></h2>
-      </div>
-      <form action="php/sign-up.php" method="POST">
-        <div class="modal-body">
-          <h4 id="officer"></h4>
-          <hr>
-          <p style="font-size: 12pt;" id="points"></p>
-        	<div class="checkbox" id="shifts"></div>
-          <hr>
-    			<div class="form-group">
-            <label for="name" class="control-label">Your Name:</label>
-            <input type="text" class="form-control" name="name" id="name" onkeyup="KeyPress(event)">
-    			</div>
-          <div id="result"></div>
+  <!-- Events -->
+  <div class="row">
+    <div class="col-xs-12">
+      <div id="events" class="list-group"></div>
+    </div> <!-- column -->
+  </div> <!-- row -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h2 class="modal-title"></h2>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Sign Up</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
+        <form action="php/sign-up.php" method="POST">
+          <div class="modal-body">
+            <h4 id="officer"></h4>
+            <hr>
+            <p style="font-size: 12pt;" id="points"></p>
+          	<div class="checkbox" id="shifts"></div>
+            <hr>
+      			<div class="form-group">
+              <label for="name" class="control-label">Your Name:</label>
+              <input type="text" class="form-control" name="name" id="name" onkeyup="KeyPress(event)">
+      			</div> <!-- form group -->
+            <div id="result"></div> <!-- for autocomplete results -->
+          </div> <!-- body -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+          </div> <!-- footer -->
+        </form>
+      </div> <!-- content -->
+    </div> <!-- dialog -->
+  </div> <!-- modal -->
+
+</div> <!-- container -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.js"></script>

@@ -1,111 +1,160 @@
-<div class="wrapper container">
-	<h1 style="text-align: center;">Nexus</h1>
-	<form class="form-inline" onsubmit="return loadNexus();" style="text-align: center;">
-		<div class="input-group">
-	        <input type="text" class="form-control" name="name" id="name" placeholder="Name" onkeyup="KeyPress(event)" autofocus>
-		<span class="input-group-btn">
-			<button type="submit" class="btn btn-default">Load</button>
-		</span>
-		</div>
-	    <div id="result"></div>
-	</form>
-	<hr>
-	<h2>Points</h2>
-	<div class="alert alert-danger" id="probation" style="display: none;"><strong>You are on Probation!</strong> Failure to meet your points requirement this semester may result in removal from ACE.</div>
-	<div class="row">
-		<div class="col-xs-4">
-			<h3 id="service-check">Service</h3>
-			<div class="progress">
-	 			<div class="progress-bar progress-bar-info" id="service-bar" data-toggle="popover" data-placement="bottom" title="Service Events" style="min-width: 2em;">0
-				</div>
-			</div>
-		</div>
-		<div class="col-xs-4">
-			<h3 id="fundraising-check">Fundraising</h3>
-			<div class="progress">
-	 			<div class="progress-bar progress-bar-warning" id="fundraising-bar" data-toggle="popover" data-placement="bottom" title="Fundraising Events" style="min-width: 2em;">0
-				</div>
-			</div>
-		</div>
-		<div class="col-xs-4">
-			<h3 id="flex-check">Flex</h3>
-			<div class="progress">
-	 			<div class="progress-bar progress-bar-danger" id="flex-bar" data-toggle="popover" data-placement="bottom" title="Flex Events" style="min-width: 2em;">0
-				</div>
-			</div>
-		</div>
-	</div>
+<div class="container-fluid">
+
+	<!-- Header -->
 	<div class="row">
 		<div class="col-xs-12">
-			<h3>
-				Total
-				<div id="total-check"></div>
-			</h3>
-			<div class="progress">
-			  <div class="progress-bar progress-bar-info" id="service-total" style="min-width: 2em;">0
-			  </div>
-			  <div class="progress-bar progress-bar-warning" id="fundraising-total" style="min-width: 2em;">0
-			  </div>
-			  <div class="progress-bar progress-bar-danger" id="flex-total" style="min-width: 2em;">0
-			  </div>
-			</div>
-		</div>
-	</div>
-	<hr>
-	<h2>Attendance</h2>
+			<h1 style="text-align: center;">Nexus</h1>
+		</div> <!-- column -->
+	</div> <!-- row -->
+
+	<!-- Load Nexus -->
 	<div class="row">
+		<div class="col-xs-12">
+			<form class="form-inline" onsubmit="return loadNexus();" style="text-align: center;">
+				<div class="input-group">
+			        <input type="text" class="form-control" name="name" id="name" placeholder="Name" onkeyup="KeyPress(event)" autofocus>
+					<span class="input-group-btn">
+						<button type="submit" class="btn btn-default">Load</button>
+					</span>
+				</div> <!-- input group -->
+			    <div id="result"></div> <!-- for autocomplete results -->
+			</form>
+		</div> <!-- column -->
+	</div> <!-- row -->
+	<hr>
+
+	<!-- Points Section -->
+	<div class="row"> <!-- header -->
+		<div class="col-xs-12">
+			<h2>Points</h2>
+		</div> <!-- column -->
+	</div> <!-- row -->
+
+	<div class="row"> <!-- Probation Alert -->
+		<div class="col-xs-12">
+			<div class="alert alert-danger" id="probation" style="display: none;">
+				<strong>You are on Probation!</strong> Failure to meet your points requirement this semester may result in removal from ACE.
+			</div> <!-- alert -->
+		</div> <!-- column -->
+	</div> <!-- row -->
+
+	<div class="row"> <!-- Individual Progress Bars -->
+		<div class="col-xs-12 col-sm-4">
+			<h3 id="service-check">Service</h3>
+			<div class="progress">
+	 			<div class="progress-bar progress-bar-info" id="service-bar" data-toggle="popover" data-placement="bottom" title="Service Events" style="min-width: 2em;">0</div>
+			</div> <!-- progress -->
+		</div> <!-- column -->
+		<div class="col-xs-12 col-sm-4">
+			<h3 id="fundraising-check">Fundraising</h3>
+			<div class="progress">
+	 			<div class="progress-bar progress-bar-warning" id="fundraising-bar" data-toggle="popover" data-placement="bottom" title="Fundraising Events" style="min-width: 2em;">0</div>
+			</div> <!-- progress -->
+		</div> <!-- column -->
+		<div class="col-xs-12 col-sm-4">
+			<h3 id="flex-check">Flex</h3>
+			<div class="progress">
+	 			<div class="progress-bar progress-bar-danger" id="flex-bar" data-toggle="popover" data-placement="bottom" title="Flex Events" style="min-width: 2em;">0</div>
+			</div> <!-- progress -->
+		</div> <!-- column -->
+	</div> <!-- row -->
+
+	<div class="row"> <!-- Total Progress Bar -->
+		<div class="col-xs-12">
+			<h3 id="total-check">Total</h3>
+			<div class="progress">
+				  <div class="progress-bar progress-bar-info" id="service-total" style="min-width: 2em;">0</div>
+				  <div class="progress-bar progress-bar-warning" id="fundraising-total" style="min-width: 2em;">0</div>
+				  <div class="progress-bar progress-bar-danger" id="flex-total" style="min-width: 2em;">0</div>
+			</div> <!-- progress -->
+		</div> <!-- column -->
+	</div> <!-- row -->
+	<hr>
+
+	<!-- Attendance Section -->
+	<div class="row"> <!-- header -->
+		<div class="col-xs-12">
+			<h2>Attendance</h2>
+		</div> <!-- column -->
+	</div> <!-- row -->
+
+	<div class="row"> <!-- attendance/sign in -->
 		<div class="col-xs-12">
 			<h3>
 				<span id="attendance">0 out of 6</span>
 				<button type="button" onclick="signIn()" class="btn btn-sm btn-default">Sign In</button>
 			</h3>
-		</div>
-	</div>
+		</div> <!-- column -->
+	</div> <!-- row -->
 	<hr>
-	<h2>Sign Ups</h2>
-	<div id="signups" class="list-group">Enter name to load your sign ups</div>
+
+	<!-- Sign Ups Section -->
+	<div class="row"> <!-- header -->
+		<div class="col-xs-12">
+			<h2>Sign Ups</h2>
+		</div> <!-- column -->
+	</div> <!-- row -->
+
+	<div class="row"> <!-- sign ups -->
+		<div class="col-xs-12">
+			<div id="signups" class="list-group">Enter name to load your sign ups</div>
+		</div> <!-- column -->
+	</div> <!-- row -->
 	<hr>
-	<h2>Events</h2>
-	<div id="myevents" class="list-group">Enter name to load your events</div>
 
-<div class="modal fade" id="mySignUpsModal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h2 class="modal-title"></h2>
-      </div>
-	  <div class="modal-body">
-	  	Click remove to take yourself off the sign up list for this event.
-	   </div>
-	   <div class="modal-footer">
-		  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		  <button type="button" id="remove-button" class="btn btn-primary" onclick="removeAttendee();">Remove</button>
-	   </div>
-    </div>
-  </div>
-</div>
+	<!-- Events Section -->
+	<div class="row"> <!-- header -->
+		<div class="col-xs-12">
+			<h2>Events</h2>
+		</div> <!-- column -->
+	</div> <!-- row -->
 
-<div class="modal fade" id="myEventsModal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h2 class="modal-title"></h2>
-      </div>
-      <form onsubmit="return submitEvent();">
+	<div class="row"> <!-- sign ups -->
+		<div class="col-xs-12">
+			<div id="myevents" class="list-group">Enter name to load your events</div>
+		</div> <!-- column -->
+	</div> <!-- row -->
+
+	<!-- Modals -->
+	<div class="modal fade" id="mySignUpsModal" tabindex="-1">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h2 class="modal-title"></h2>
+	      </div>
 		  <div class="modal-body">
-			    <div class="checkbox" id="attendeesDiv"></div>
+		  	Click remove to take yourself off the sign up list for this event.
 		   </div>
 		   <div class="modal-footer">
 			  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			  <button type="submit" class="btn btn-primary">Approve</button>
+			  <button type="button" id="remove-button" class="btn btn-primary" onclick="removeAttendee();">Remove</button>
 		   </div>
-	   </form>
-    </div>
-  </div>
-</div>
-</div>
+	    </div>
+	  </div>
+	</div>
+
+	<div class="modal fade" id="myEventsModal" tabindex="-1">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h2 class="modal-title"></h2>
+	      </div>
+	      <form onsubmit="return submitEvent();">
+			  <div class="modal-body">
+				    <div class="checkbox" id="attendeesDiv"></div>
+			   </div>
+			   <div class="modal-footer">
+				  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				  <button type="submit" class="btn btn-primary">Approve</button>
+			   </div>
+		   </form>
+	    </div>
+	  </div>
+	</div>
+
+</div> <!-- container -->
 
 <br><br><br><br>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.js"></script>

@@ -40,8 +40,6 @@ function getPoints(name) {
 		$.each( result, function( key, value ) {
 			var type = value.type.charAt(0).toUpperCase() + value.type.substr(1);
 
-			console.log("Event: " + value.name + " points: " + value.points);
-
 			if (type === "Service") {
 				service += value.points;
 				serviceContent += value.name + ": " + value.points + " points<br>";
@@ -63,21 +61,28 @@ function getPoints(name) {
 		$('#flex-bar').popover({content: flexContent, html: true});
 
 		// Calculate values for progress bars
+		var totalCheck = true;
 		if (service >= serviceMax) {
 			var flexMax = flexMax - (service - serviceMax);
 			document.getElementById("service-check").innerHTML = "Service <span class='glyphicon glyphicon-ok'></span>";	// Add checkmark if this category is complete
 		}
+		else
+			totalCheck = false;
 
 
 		if (fundraising >= fundraisingMax) {
 			var flexMax = flexMax - (fundraising - fundraisingMax);
 			document.getElementById("fundraising-check").innerHTML = "Fundraising <span class='glyphicon glyphicon-ok'></span>";	// Add checkmark if this category is complete
 		}
+		else
+			totalCheck = false;
 
 		if (flex >= flexMax)
 			document.getElementById("flex-check").innerHTML = "Flex <span class='glyphicon glyphicon-ok'></span>";	// Add checkmark if this category is complete
+		else
+			totalCheck = false;
 
-		if ((fundraising + service + flex) >= 100)
+		if (totalCheck)
 			document.getElementById("total-check").innerHTML = "Total <span class='glyphicon glyphicon-ok'></span>";	// Add checkmark if this category is complete
 
 		var servicePerc = (service/serviceMax) * 100;

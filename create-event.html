@@ -1,9 +1,22 @@
-	<h1 style="text-align: center;">Create Event</h1>
+<div class="container-fluid">
+
+	<!-- Header -->
+	<div class="row">
+		<div class="col-xs-12">
+			<h1 style="text-align: center;">Create Event</h1>
+		</div> <!-- column -->
+	</div> <!-- row -->
+	<hr>
+
 	<form action="php/create-event.php" method="POST" name="event">
 
 		<!-- Name Inputs -->
-		<hr>
-		<h3>Event Information</h3>
+		<div class="row">
+			<div class="col-xs-12">
+				<h3>Event Information</h3>
+			</div> <!-- column -->
+		</div> <!-- row -->
+
 		<div class="row">
 			<div class="col-xs-6">
 				<div class="form-group">
@@ -54,10 +67,15 @@
 				</div>
 			</div>
 		</div>
+		<hr>
 
 		<!-- Shift Inputs -->
-		<hr>
-		<h3>Shifts</h3>
+		<div class="row">
+			<div class="col-xs-12">
+				<h3>Shifts</h3>
+			</div> <!-- column -->
+		</div> <!-- row -->
+		
 		<div id="shifts-div">
 			<div class="row">
 				<div class="col-xs-4">
@@ -93,3 +111,13 @@
 		<button type="submit" class="btn btn-default btn-lg">Submit</button>
 		<br><br><br><br><br>
 	</form>
+</div> <!-- container -->
+
+<!-- Bootstrap core JavaScript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<!-- Custom JavaScript -->
+<script src="js/auto-complete.js"></script>
+<script src="js/ace.js"></script>
+<script src="js/create-event.js"></script>

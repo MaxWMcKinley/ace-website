@@ -69,7 +69,6 @@ function getPoints(name) {
 		else
 			totalCheck = false;
 
-
 		if (fundraising >= fundraisingMax) {
 			var flexMax = flexMax - (fundraising - fundraisingMax);
 			document.getElementById("fundraising-check").innerHTML = "Fundraising <span class='glyphicon glyphicon-ok'></span>";	// Add checkmark if this category is complete

@@ -89,7 +89,7 @@ if ($permitted) {
 	// Add attendance point to the user
 	// --------------------------------------------------------------------------------------------
 
-	if (!($stmt = $conn->prepare("INSERT INTO attendance (uin, attendance, last) VALUES (?, 1, ?) ON DUPLICATE KEY UPDATE attendance = attendance + 2, last = ?")))
+	if (!($stmt = $conn->prepare("INSERT INTO attendance (uin, attendance, last) VALUES (?, 1, ?) ON DUPLICATE KEY UPDATE attendance = attendance + 1, last = ?")))
 		echo "Insert attendance preparation failed with error number " . $conn->errno . " (" . $conn->error . ")";
 
 	if (!$stmt->bind_param("sss", $uin, $today, $today))

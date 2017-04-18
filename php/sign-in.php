@@ -1,14 +1,14 @@
 <?php
 
 // --------------------------------------------------------------------------------------------
-// Store input parameters 
+// Store input parameters
 // --------------------------------------------------------------------------------------------
 
 $name = $_GET['name'];
 
 
 // --------------------------------------------------------------------------------------------
-// Connect to database 
+// Connect to database
 // --------------------------------------------------------------------------------------------
 
 // Set up connection variables
@@ -43,7 +43,7 @@ if (!$stmt->execute())
 
 if (!$stmt->bind_result($result))
 	echo "UIN result binding failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
-	
+
 // Storing result into $uin
 while ($stmt->fetch())
 	$uin = $result;
@@ -89,7 +89,7 @@ if ($permitted) {
 	// Add attendance point to the user
 	// --------------------------------------------------------------------------------------------
 
-	if (!($stmt = $conn->prepare("INSERT INTO attendance (uin, attendance, last) VALUES (?, 1, ?) ON DUPLICATE KEY UPDATE attendance = attendance + 1, last = ?")))
+	if (!($stmt = $conn->prepare("INSERT INTO attendance (uin, attendance, last) VALUES (?, 1, ?) ON DUPLICATE KEY UPDATE attendance = attendance + 2, last = ?")))
 		echo "Insert attendance preparation failed with error number " . $conn->errno . " (" . $conn->error . ")";
 
 	if (!$stmt->bind_param("sss", $uin, $today, $today))

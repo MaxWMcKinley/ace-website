@@ -1,14 +1,14 @@
 <?php
 
 // --------------------------------------------------------------------------------------------
-// Store input parameters 
+// Store input parameters
 // --------------------------------------------------------------------------------------------
 
 $name = $_GET['name'];
 
 
 // --------------------------------------------------------------------------------------------
-// Connect to database 
+// Connect to database
 // --------------------------------------------------------------------------------------------
 
 // Set up connection variables
@@ -43,7 +43,7 @@ if (!$stmt->execute())
 
 if (!$stmt->bind_result($result))
 	echo "UIN result binding failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
-	
+
 // Storing result into $uin
 while ($stmt->fetch())
 	$uin = $result;

@@ -14,17 +14,18 @@ $family = $_POST['family'];
 $position = $_POST['position'];
 $phone = $_POST['phone'];
 $email = $_POST['email'];
+$password = $_POST['password'];
 
 //password stuff
 
-if (!($stmt = $conn->prepare("INSERT INTO nmembers (uin, name, major, family, position, phone, email, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")));
-	echo "Insert statement preparation failed with error number " . $conn->errno . " (" . $conn->error . ")";
+if (!($stmt = $conn->prepare("INSERT INTO nmembers (uin, name, major, family, phone, email, password) VALUES (?, ?, ?, ?, ?, ?, ?)")))
+	die("Insert statement preparation failed with error number " . $conn->errno . " (" . $conn->error . ")");
 
-if (!$stmt->bind_param("ssssssss", $first_name, $last_name))
-	echo "Insert parameter binding failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
+if (!$stmt->bind_param("sssssss", $uin, $name, $major, $family, $phone, $email, $password))
+	die("Insert parameter binding failed with error number " . $stmt->errno . " (" . $stmt->error . ")");
 
 if (!$stmt->execute())
-	echo "Insert execute failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
+	die("Insert execute failed with error number " . $stmt->errno . " (" . $stmt->error . ")");
 
 // log user in
 
@@ -32,3 +33,5 @@ if (!$stmt->execute())
 
 $stmt->close();
 $conn->close();
+
+echo "success";

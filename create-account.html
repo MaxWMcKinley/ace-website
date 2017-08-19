@@ -2,27 +2,35 @@
 
 	<div class="row">
 		<div class="col-xs-12">
+			<div id="alert" class="alert alert-dismissible" role="alert" style="display: none; margin-top: 2em;">
+				<button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+				<strong id="alert-strong"></strong><span id="alert-message"></span>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
 			<h1 style="text-align: center;">Create an Account</h1>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-12">
 
-			<form>
-
-				<div class="form-group">
+			<form id="create-account">
+				<div class="form-group col-xs-12 col-sm-6">
 					<label for="uin">UIN: </label>
 					<input type="text" id="uin" class="form-control" />
 				</div>
 
-				<div class="form-group">
+				<div class="form-group col-xs-12 col-sm-6">
 					<label for="name">Name: </label>
-					<input type="text" id="uin" class="form-control" />
+					<input type="text" id="name" class="form-control" />
 				</div>
 
-				<div class="form-group">
+				<div class="form-group col-xs-12 col-sm-6">
 					<label for="major">Major: </label>
-					<select id="major" class="form-control">
+					<select id="major" class="form-control" value="AERO">
 						<option value="AERO">Aerospace Engineering</option>
 						<option value="BAEN">Biological and Agricultural Engineering</option>
 						<option value="BMEN">Biomedical Engineering</option>
@@ -45,20 +53,33 @@
 					</select>
 				</div>
 
-<!-- position and family can be autodetected/assumed -->
-				<div class="form-group">
+				<div class="form-group col-xs-12 col-sm-6">
+					<label for="family">Family: </label>
+					<select id="family" class="form-control" value="MEEN">
+						<option value="MEEN">MEEN</option>
+						<option value="PETE">Pussy Pete</option>
+						<option value="ZAPDOS">Zapdos</option>
+						<option value="GANGSTER">Gangster Squad</option>
+					</select>
+				</div>
+
+				<div class="form-group col-xs-12 col-sm-6">
 					<label for="phone">Phone Number: </label>
 					<input type="tel" id="phone" class="form-control" />
 				</div>
 
-				<div class="form-group">
-					<label for="tamu-email">A&M Email: </label>
-					<input type="email" id="tamu-email" class="form-control" />
+				<div class="form-group col-xs-12 col-sm-6">
+					<label for="email">Personal Email: </label>
+					<input type="email" id="email" class="form-control" />
 				</div>
 
-				<div class="form-group">
-					<label for="personal-email">Personal Email: </label>
-					<input type="email" id="personal-email" class="form-control" />
+				<div class="form-group col-xs-12">
+					<label for="password">Password: </label>
+					<input type="password" id="password" class="form-control" />
+				</div>
+
+				<div class="col-xs-12">
+					<button class="btn btn-default btn-lg btn-block" type="submit">Create</button>
 				</div>
 			</form>
 		</div>
@@ -71,3 +92,6 @@
 
 <!-- Bootstrap -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="js/utils.js"></script>
+<script src="js/create-account.js"></script>

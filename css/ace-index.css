@@ -84,16 +84,7 @@
   background-image: none;
 }
 
-/* Calendar ---------------------------------------------------------------- */
-
-#calendar {
+#letter {
   width: 100%;
   background-color: wheat;
-}
-
-/* Contact Us Section ------------------------------------------------------ */
-
-#contact {
-  width: 100%;
-  /* background-color: wheat; */
 }

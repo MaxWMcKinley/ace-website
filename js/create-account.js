@@ -11,6 +11,7 @@ $(document).ready(() => {
 			phone: form.phone.value,
 			email: form.email.value,
 			password: form.password.value,
+			access: form.access.value
 		};
 
 		$.ajax('../php/create-account.php', {
@@ -20,6 +21,8 @@ $(document).ready(() => {
 		.done(data => {
 			if(data == "success") {
 				showAlert("alert-success", "Success!", "You're account has been created.");
+			} else if(data == "wrongAccess") {
+				showAlert("alert-info", "Failure!", "Access code did not match. Please try again.");
 			} else {
 				showAlert("alert-danger", "Failure!", "Something went wrong with creating your account. Talk to the webmaster.");
 				console.log(data);

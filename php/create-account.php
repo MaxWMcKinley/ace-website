@@ -3,6 +3,7 @@ session_start();
 
 require("connect.php");
 require("utils.php");
+require("checkAccess.php");
 
 checkNull($_POST);
 
@@ -15,8 +16,11 @@ $position = $_POST['position'];
 $phone = $_POST['phone'];
 $email = $_POST['email'];
 $password = $_POST['password'];
+$accessCode = $_POST['access'];
 
-//password stuff
+if(!checkAccess($accessCode))
+	die("wrongAccess");
+
 $hash = password_hash($password, PASSWORD_DEFAULT);
 
 if (!($stmt = $conn->prepare("INSERT INTO nmembers (uin, name, major, family, phone, email, password) VALUES (?, ?, ?, ?, ?, ?, ?)")))
@@ -30,13 +34,6 @@ if (!$stmt->execute())
 
 $_SESSION['loggedIn'] = true;
 $_SESSION['uin'] = $uin;
-// log user in
-// log in page and endpoint
-// log out page and endpoint
-// index.php changes (session and redirects)
-// session stuff on other pages
-// Add locks based on user position
-// Be able to change user position
 
 $stmt->close();
 $conn->close();

@@ -4,7 +4,7 @@
 // Output: Will terminate program and identify null values if there are any
 // Creator: Max Mckinley
 
-$memberAccess = array('nexus', 'events');
+$memberAccess = array('nexus', 'events', 'create-event');
 
 function checkNull ($array) {
 	$nullKeys = array_keys($array, NULL);

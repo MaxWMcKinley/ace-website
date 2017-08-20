@@ -28,9 +28,15 @@ if (!$stmt->bind_param("sssssss", $uin, $name, $major, $family, $phone, $email, 
 if (!$stmt->execute())
 	die("Insert execute failed with error number " . $stmt->errno . " (" . $stmt->error . ")");
 
+$_SESSION['loggedIn'] = true;
+$_SESSION['uin'] = $uin;
 // log user in
-
-// return values
+// log in page and endpoint
+// log out page and endpoint
+// index.php changes (session and redirects)
+// session stuff on other pages
+// Add locks based on user position
+// Be able to change user position
 
 $stmt->close();
 $conn->close();

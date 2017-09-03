@@ -115,20 +115,17 @@ section {
 /* Desktops and laptops ----------- */
 @media only screen  and (min-width : 750px) {
   .slide-container {
-    position: relative;
-    padding-bottom: 35.25%;
-/*    padding-top: 35px;*/
-    height:0;
+    width:100%;
+    height:100%;
     overflow: hidden;
   }
 
   .slide-container iframe {
-    position:absolute;
     top:0;
     left:0;
     width: 100%;
-    height: 100%
-  } 
+    height: 100%;
+  }
 
 }
 
@@ -140,15 +137,13 @@ section {
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
 /* Styles */
 .slide-container {
-  position: relative;
-  padding-bottom: 56.25%;
-  padding-top: 35px;
+
   height:0;
   overflow: hidden;
 }
 
 .slide-container iframe {
-  position:absolute;
+
   top:0;
   left:0;
   width:100%;

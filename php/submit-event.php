@@ -54,28 +54,6 @@ while ($stmt->fetch()) {
 
 
 // --------------------------------------------------------------------------------------------
-// Get all shiftids for the event
-// --------------------------------------------------------------------------------------------
-
-// if (!($stmt = $conn->prepare("SELECT shiftid FROM shifts WHERE eventid = ?")))
-// 	echo "Select shiftids preparation failed with error number " . $conn->errno . " (" . $conn->error . ")";
-
-// if (!$stmt->bind_param("s", $eventid))
-// 	echo "Select shiftids parameter binding failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
-
-// if (!$stmt->execute())
-// 	echo "Select shiftids execute failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
-
-// if (!$stmt->bind_result($result))
-// 	echo "Select shiftids result binding failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
-
-// $i = 0;
-// while ($stmt->fetch()) {
-// 	$shiftids[$i] = $result;
-// 	$i++;
-// }
-
-// --------------------------------------------------------------------------------------------
 // Get the uins of people who went to the event
 // --------------------------------------------------------------------------------------------
 
@@ -140,22 +118,6 @@ if (!$stmt->bind_param("s", $id))
 
 if (!$stmt->execute())
 	echo "Delete sign ups execute failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
-
-
-// --------------------------------------------------------------------------------------------
-// Delete shifts related to this event
-// --------------------------------------------------------------------------------------------
-
-// if (!($stmt = $conn->prepare("DELETE FROM shifts WHERE shiftid = ?")))
-// 	echo "Delete shifts preparation failed with error number " . $conn->errno . " (" . $conn->error . ")";
-
-// if (!$stmt->bind_param("s", $shift))
-// 	echo "Delete shifts parameter binding failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
-
-// foreach ($shiftids as $shift) {
-// 	if (!$stmt->execute())
-// 		echo "Delete shifts execute failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
-// }
 
 
 // --------------------------------------------------------------------------------------------

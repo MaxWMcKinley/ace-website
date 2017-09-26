@@ -3,6 +3,7 @@ h2 {
   margin-top: 0px;
 }
 
+
 .officer-containers {
   padding:0;
   margin:0;
@@ -15,11 +16,9 @@ h2 {
 
 }
 
-div.officer-item {
-  vertical-align: top;
-  flex-direction: row;
-  text-align: center;
-  width: 120px;
+.officer-item.img-responsive.center-block {
+  width:244.16px;
+  height:367.2px;
 }
 .caption {
 

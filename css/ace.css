@@ -119,11 +119,14 @@ section {
   }
 
   .slide-container iframe {
-    position:absolute;
     top:0;
     left:0;
     width: 100%;
+<<<<<<< HEAD
     height: 100%
+=======
+    height: 100%;
+>>>>>>> 4aa88c5c541ea7bc624394a5c6e6451da03fc7e3
   }
 
 }
@@ -136,14 +139,12 @@ section {
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
 /* Styles */
 .slide-container {
-  position: relative;
-  padding-top: 35px;
   height:0;
   overflow: hidden;
 }
 
 .slide-container iframe {
-  position:absolute;
+
   top:0;
   left:0;
   width:100%;

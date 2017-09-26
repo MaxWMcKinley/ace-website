@@ -34,7 +34,7 @@
 }
 
 .recruiter-title {
-  background-color: #600000;
+  background-color: #0085CA;
   width:100%;
   text-align: center;
   color:#fff;
@@ -43,7 +43,7 @@
 }
 .recruit-image {
   float:center;
-  max-height: 350px;
+
 }
 
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {

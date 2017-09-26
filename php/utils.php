@@ -1,8 +1,6 @@
 <?php
 session_start();
 
-$memberAccess = array('nexus', 'events', 'create-event', 'calendar', 'links');
-
 function checkNull ($array) {
 	$nullKeys = array_keys($array, NULL);
 	$missing = "";

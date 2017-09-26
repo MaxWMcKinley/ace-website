@@ -21,7 +21,6 @@ $uin = $_POST['uin'];
 $name = $_POST['name'];
 $major = $_POST['major'];
 $family = $_POST['family'];
-$position = $_POST['position'];
 $phone = $_POST['phone'];
 $email = $_POST['email'];
 $password = $_POST['password'];
@@ -56,6 +55,7 @@ if (!$stmt->execute())
 $_SESSION['loggedIn'] = true;
 $_SESSION['uin'] = $uin;
 $_SESSION['name'] = $name;
+$_SESSION['position'] = 'member';
 
 
 // --------------------------------------------------------------------------------------------

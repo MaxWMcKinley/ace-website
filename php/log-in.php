@@ -10,7 +10,7 @@ checkNull($_POST);
 $uin = $_POST['uin'];
 $password = $_POST['password'];
 
-if (!($stmt = $conn->prepare("SELECT password, name FROM nmembers WHERE uin = ?")))
+if (!($stmt = $conn->prepare("SELECT password, name, position FROM nmembers WHERE uin = ?")))
 	die("Insert statement preparation failed with error number " . $conn->errno . " (" . $conn->error . ")");
 
 if (!$stmt->bind_param("s", $uin))
@@ -19,7 +19,7 @@ if (!$stmt->bind_param("s", $uin))
 if (!$stmt->execute())
 	die("Insert execute failed with error number " . $stmt->errno . " (" . $stmt->error . ")");
 
-if (!$stmt->bind_result($result, $name))
+if (!$stmt->bind_result($result, $name, $position))
 	echo "UIN result binding failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
 
 while ($stmt->fetch())
@@ -32,6 +32,7 @@ if(password_verify($password, $hash)) {
 	$_SESSION['loggedIn'] = true;
 	$_SESSION['uin'] = $uin;
 	$_SESSION['name'] = $name;
+	$_SESSION['position'] = $position;	
 
 	echo "success";
 } else {

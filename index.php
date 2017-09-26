@@ -1,9 +1,16 @@
 <?php
 session_start();
 
-require("php/utils.php");
-
 include("header.html");
+
+$memberAccess = array('nexus', 'events', 'create-event', 'calendar', 'links');
+$officerAccess = array('create-event');
+$execAccess = array();
+
+$execClearance = array('exec', 'admin');
+$officerClearance = array_merge($execClearance, array('godfather', 'officer'));
+
+$position = $_SESSION['position'];
 
 $action = "home";
 if(!empty($_GET['action'])) {
@@ -13,8 +20,12 @@ if(!empty($_GET['action'])) {
 		$action = $tmp_action;
 }
 
-if(!$_SESSION['loggedIn'] && in_array($action, $memberAccess)) {
+if (!$_SESSION['loggedIn'] && in_array($action, $memberAccess)) {
 	$action = "log-in";
+} else if (!in_array($position, $officerClearance) && in_array($action, $officerAccess)) {
+	$action = "restricted";
+} else if (!in_array($position, $execClearance) && in_array($action, $execAccess)) {
+	$action = "restricted";
 }
 
 include($_SERVER['DOCUMENT_ROOT']."/$action.html");

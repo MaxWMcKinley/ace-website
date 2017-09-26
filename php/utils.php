@@ -1,10 +1,7 @@
 <?php
-// Summary: Checks an array of any size for null values. Used to check for null inputs passed from client-side forms
-// Input: Array
-// Output: Will terminate program and identify null values if there are any
-// Creator: Max Mckinley
+session_start();
 
-$memberAccess = array('nexus', 'events', 'create-event');
+$memberAccess = array('nexus', 'events', 'create-event', 'calendar', 'links');
 
 function checkNull ($array) {
 	$nullKeys = array_keys($array, NULL);
@@ -22,4 +19,8 @@ function checkNull ($array) {
 	 	}
 		die("Missing " . $missing . ".  Please resubmit");
 	}
+}
+
+function getUin() {
+	return $_SESSION['uin'];
 }

@@ -5,6 +5,8 @@ $(document).ready(() => {
 			window.location.href = "?action=log-in";
 		});
 	});
+
+	loadNexus();
 });
 
 
@@ -13,13 +15,12 @@ $(document).ready(() => {
 // --------------------------------------------------------------------------------------------
 
 function loadNexus() {
-	var name = document.getElementById("name").value;
 
-	getPoints(name);
-	getAttendance(name);
-	getSignups(name);
-	getEvents(name);
-	probationCheck(name);
+	getPoints();
+	getAttendance();
+	getSignups();
+	getEvents();
+	probationCheck();
 
 	return false;
 }
@@ -29,8 +30,7 @@ function loadNexus() {
 // Getter Functions
 // --------------------------------------------------------------------------------------------
 
-function getPoints(name) {
-	var data = "name=" + name;
+function getPoints() {
 
 	var service = 0;
 	var fundraising = 0;
@@ -44,7 +44,7 @@ function getPoints(name) {
 	var fundraisingContent = "";
 	var flexContent = "";
 
-	$.getJSON("../php/get-points.php", data, function(result){
+	$.getJSON("../php/get-points.php", function(result){
 
 		// Total up all of the points for each category
 		$.each( result, function( key, value ) {
@@ -99,42 +99,41 @@ function getPoints(name) {
 		var flexPerc = (flex/flexMax) * 100;
 
 		// Fill in progress bars
-		document.getElementById("service-bar").style = "min-width: 2em; max-width: 100%; width: " + servicePerc + "%;";
-		document.getElementById("fundraising-bar").style = "min-width: 2em; max-width: 100%; width: " + fundraisingPerc + "%;";
-		document.getElementById("flex-bar").style = "min-width: 2em; max-width: 100%; width: " + flexPerc + "%;";
+		document.getElementById("service-bar").style.cssText = "min-width: 2em; max-width: 100%; width: " + servicePerc + "%;";
+		document.getElementById("fundraising-bar").style.cssText = "min-width: 2em; max-width: 100%; width: " + fundraisingPerc + "%;";
+		document.getElementById("flex-bar").style.cssText = "min-width: 2em; max-width: 100%; width: " + flexPerc + "%;";
 
 		document.getElementById("service-bar").innerHTML = "" + service;
 		document.getElementById("fundraising-bar").innerHTML = "" + fundraising;
 		document.getElementById("flex-bar").innerHTML = "" + flex;
 
-		document.getElementById("service-total").style = "min-width: 2em; max-width: 80%; width: " + service + "%;";
-		document.getElementById("fundraising-total").style = "min-width: 2em; max-width: 70%; width: " + fundraising + "%;";
-		document.getElementById("flex-total").style = "min-width: 2em; max-width: 50%; width: " + flex + "%;";
+		document.getElementById("service-total").style.cssText = "min-width: 2em; max-width: 80%; width: " + service + "%;";
+		document.getElementById("fundraising-total").style.cssText = "min-width: 2em; max-width: 70%; width: " + fundraising + "%;";
+		document.getElementById("flex-total").style.cssText = "min-width: 2em; max-width: 50%; width: " + flex + "%;";
 
 		document.getElementById("service-total").innerHTML = "" + service;
 		document.getElementById("fundraising-total").innerHTML = "" + fundraising;
 		document.getElementById("flex-total").innerHTML = "" + flex;
+
+		$("body").addClass("dummyClass").removeClass("dummyClass");		
 	});
 }
 
-function getAttendance(name) {
-	var data = "name=" + name;
+function getAttendance() {
 
 	$.ajax({
 		type: "GET",
 		url: "../php/get-attendance.php",
-		data: data,
 		success: function(response) {
-			document.getElementById("attendance").innerHTML = response + " out of 14";
+			document.getElementById("attendance").innerHTML = response + " out of 4";
 		}
 	});
 }
 
-function getSignups(name) {
-	var data = "name=" + name;
-
-	$.getJSON("../php/get-signups.php", data, function(result){
+function getSignups() {
+	$.getJSON("../php/get-signups.php", function(result){
 		var signups = "";
+
 		$.each( result, function( key, value ) {
 			var date = moment(value.date, 'YYYY-MM-D').format('MMM Do');
 			var type = value.type.charAt(0).toUpperCase() + value.type.substr(1);
@@ -150,15 +149,17 @@ function getSignups(name) {
 			document.getElementById("signups").innerHTML = signups;
 		}
 		else {
-			document.getElementById("signups").innerHTML = "You have not signed up for any events";
+			document.getElementById("signups").innerHTML = "You are not signed up for any events";
 		}
+	})
+	.fail(function() {
+		document.getElementById("signups").innerHTML = "You are not signed up for any events";		
 	});
 }
 
-function getEvents(name) {
-	var data = "name=" + name;
+function getEvents() {
 
-	$.getJSON("../php/get-createdevents.php", data, function(result){
+	$.getJSON("../php/get-createdevents.php", function(result){
 		var myevents = "";
 		$.each( result, function( key, value ) {
 			var date = moment(value.date, 'YYYY-MM-D').format('MMM Do');
@@ -181,14 +182,18 @@ function getEvents(name) {
 	return false;
 }
 
-function probationCheck(name) {
-	var data = "name=" + name;
+function probationCheck() {
 
 	$.ajax({
 			type: "GET",
 			url: "../php/check-probation.php",
-			data: data,
 			success: function(response) {
+				var response = JSON.parse(response);
+				var probation = response.probation;
+				var name = response["name"];
+
+				document.getElementById("name").innerHTML = name;
+
 			  if(response == 1)
 			  	document.getElementById("probation").style.display = '';
 			}
@@ -201,17 +206,15 @@ function probationCheck(name) {
 // --------------------------------------------------------------------------------------------
 
 function removeAttendee() {
-	var uin = document.getElementById("mySignUpsModal").uin;
 	var eventId = document.getElementById("mySignUpsModal").eventId;
 
    	$.ajax({
             type: "POST",
-            url: "../php/removeAttendee.php",
-            data: {uins: uin, eventId: eventId},
+            url: "../php/remove-attendee.php",
+            data: {eventId: eventId},
             success: function(response) {
               $('#mySignUpsModal').modal('hide');
-				  var name = document.getElementById("name").value;
-              getSignups(name);
+              setTimeout(function(){getSignups();}, 200);
             }
     	});
 }
@@ -233,28 +236,27 @@ function submitEvent() {
             url: "../php/submit-event.php",
             data: {uins: JSON.stringify(uins), eventid: eventId},
             success: function(response) {
-              alert( "Event Submission Complete " + response );
-                }
-          });
+				window.location.href = "?action=nexus";
+			}
+	})
+	.fail(function() {
+		showAlert("alert-danger", "Failure!", "Event submission failed.");        			
+	});
 
 	return false;
 }
 
 function signIn() {
-	var name = document.getElementById("name").value;
-	var data = "name=" + name;
 
    	$.ajax({
         type: "GET",
         url: "../php/sign-in.php",
-        data: data,
         success: function(response) {
         	console.log(" response: " + response);
         	if (response !== "0")
-     	      	document.getElementById("attendance").innerHTML = response + " out of 14";
+     	      	document.getElementById("attendance").innerHTML = response + " out of 4";
         	else
         		alert("You are not allowed to sign up at this time, contact Max if you believe this is an error");
-
         }
     });
 }
@@ -299,7 +301,6 @@ $('#mySignUpsModal').on('show.bs.modal', function (event) {
   var freeze = button.data('freeze');
 
   var todayDate = today();
-  console.log("today: " + todayDate + " freeze: " + freeze);
   if (todayDate >= freeze) {
   		document.getElementById("remove-button").disabled = "disabled";
    }

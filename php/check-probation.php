@@ -1,97 +1,50 @@
 <?php
 
-// --------------------------------------------------------------------------------------------
-// Store input parameters
-// --------------------------------------------------------------------------------------------
-
-$name = $_GET['name'];
-
+// This file also fetchs the name of the user to show he is logged in. Not intuitive for it to be here.
 
 // --------------------------------------------------------------------------------------------
-// Connect to database
+// Import files
 // --------------------------------------------------------------------------------------------
 
-// Set up connection variables
-$hostname="localhost";
-$username="acesan7_max";
-$password="dbpw2669";
-$dbname="acesan7_db";
-
-// Connecting to database
-$conn = new mysqli($hostname, $username, $password, $dbname);
-if ($conn->connect_errno)
-	echo "Failed to connect to database with error number " . $conn->connect_errno . " (" . $conn->connect_error . ")";
+require("utils.php");
+require("connect.php");
 
 
 // --------------------------------------------------------------------------------------------
-// Get UIN of user
+// Get user's UIN
 // --------------------------------------------------------------------------------------------
 
-// Split name into first and last names
-$names = explode(" ", $name);
-$first_name = $names[0];
-$last_name = $names[1];
+$uin = getUin();
 
-if (!($stmt = $conn->prepare("SELECT uin FROM members WHERE first_name = ? AND last_name = ?")))
-	echo "UIN statement preparation failed with error number " . $conn->errno . " (" . $conn->error . ")";
 
-if (!$stmt->bind_param("ss", $first_name, $last_name))
-	echo "UIN parameter binding failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
+// --------------------------------------------------------------------------------------------
+// Check if user is on probation
+// --------------------------------------------------------------------------------------------
+
+if (!($stmt = $conn->prepare("SELECT probation, name FROM nmembers WHERE uin = ?")))
+	echo "Select probation preparation failed with error number " . $conn->errno . " (" . $conn->error . ")";
+
+if (!$stmt->bind_param("s", $uin))
+	echo "Select probation parameter binding failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
 
 if (!$stmt->execute())
-	echo "UIN execute failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
+	echo "Select probation execute failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
 
-if (!$stmt->bind_result($result))
-	echo "UIN result binding failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
+if (!$stmt->bind_result($probation, $name))
+	echo "Select probation result binding failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
 
-// Storing result into $uin
-while ($stmt->fetch())
-	$uin = $result;
+$stmt->fetch();
 
-// --------------------------------------------------------------------------------------------
-// Get eventids of the probation event
-// --------------------------------------------------------------------------------------------
+$array['probation'] = $probation;
+$array['name'] = $name;
 
-if (!($stmt = $conn->prepare("SELECT id FROM event_archive WHERE name = 'Probation'")))
-	echo "Select probation id preparation failed with error number " . $conn->errno . " (" . $conn->error . ")";
-
-if (!$stmt->execute())
-	echo "Select probation id execute failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
-
-if (!$stmt->bind_result($id))
-	echo "Select probation id result binding failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
-
-while ($stmt->fetch()) {
-	$probationid = $id;
-}
-
-
-// --------------------------------------------------------------------------------------------
-// Check to see if the member is signed up for the "Probation Event"
-// --------------------------------------------------------------------------------------------
-
-if (!($stmt = $conn->prepare("SELECT 1 FROM points WHERE eventid = ? AND uin = ?")))
-	echo "Select points preparation failed with error number " . $conn->errno . " (" . $conn->error . ")";
-
-if (!$stmt->bind_param("ss", $probationid, $uin))
-	echo "Check probation select parameter binding failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
-
-if (!$stmt->execute())
-	echo "Check probation select execute failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
-
-if (!$stmt->bind_result($result))
-	echo "Check probation select result binding failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
-
-$probation = 0;
-if ($stmt->fetch()) {
-	$probation = 1;
-}
+$json = json_encode($array);
 
 // --------------------------------------------------------------------------------------------
 // Return the result, and close any connections
 // --------------------------------------------------------------------------------------------
 
-echo $probation;
+echo $json;
 
 $stmt->close();
 $conn->close();

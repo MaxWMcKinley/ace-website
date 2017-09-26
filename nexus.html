@@ -6,29 +6,17 @@
 			<h1 style="text-align: center;">Nexus</h1>
 		</div> <!-- column -->
 	</div> <!-- row -->
-
-	<!-- Load Nexus -->
-	<div class="row">
-		<div class="col-xs-12">
-			<form class="form-inline" onsubmit="return loadNexus();" style="text-align: center;">
-				<div class="input-group">
-			        <input type="text" class="form-control" name="name" id="name" placeholder="Name" onkeyup="KeyPress(event)" autofocus>
-					<span class="input-group-btn">
-						<button type="submit" class="btn btn-default">Load</button>
-					</span>
-				</div> <!-- input group -->
-			    <div id="result"></div> <!-- for autocomplete results -->
-			</form>
-		</div> <!-- column -->
-	</div> <!-- row -->
+	<hr>
 
 <div class="row">
 	<div class="col-xs-12"  style="text-align: center;">
+		<span>You are signed in as </span>
+		<span id="name" style="margin-right: 1em;"></span>
 		<button id="log-out" class="btn btn-danger">Log Out</button>
 	</div>
 </div>
-
 <hr>
+
 
 	<!-- Points Section -->
 	<div class="row"> <!-- header -->
@@ -88,7 +76,7 @@
 	<div class="row"> <!-- attendance/sign in -->
 		<div class="col-xs-12">
 			<h3>
-				<span id="attendance">0 out of 14</span>
+				<span id="attendance">0 out of 4</span>
 				<button type="button" onclick="signIn()" class="btn btn-sm btn-default">Sign In</button>
 			</h3>
 		</div> <!-- column -->
@@ -104,7 +92,7 @@
 
 	<div class="row"> <!-- sign ups -->
 		<div class="col-xs-12">
-			<div id="signups" class="list-group">Enter name to load your sign ups</div>
+			<div id="signups" class="list-group">Loading...</div>
 		</div> <!-- column -->
 	</div> <!-- row -->
 	<hr>
@@ -118,7 +106,7 @@
 
 	<div class="row"> <!-- sign ups -->
 		<div class="col-xs-12">
-			<div id="myevents" class="list-group">Enter name to load your events</div>
+			<div id="myevents" class="list-group">Loading...</div>
 		</div> <!-- column -->
 	</div> <!-- row -->
 
@@ -150,6 +138,7 @@
 	      </div>
 	      <form onsubmit="return submitEvent();">
 			  <div class="modal-body">
+				  	<p>Check all members who were ABSENT</p>
 				    <div class="checkbox" id="attendeesDiv"></div>
 			   </div>
 			   <div class="modal-footer">
@@ -173,6 +162,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.js"></script>
 
 <!-- Custom JavaScript -->
-<script src="js/auto-complete.js"></script>
+<script src="js/utils.js"></script>
 <script src="js/ace.js"></script>
 <script src="js/nexus.js"></script>

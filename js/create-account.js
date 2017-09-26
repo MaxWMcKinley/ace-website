@@ -20,7 +20,7 @@ $(document).ready(() => {
 		})
 		.done(data => {
 			if(data == "success") {
-				showAlert("alert-success", "Success!", "You're account has been created.");
+				window.location.href = "?action=nexus";
 			} else if(data == "wrongAccess") {
 				showAlert("alert-info", "Failure!", "Access code did not match. Please try again.");
 			} else {

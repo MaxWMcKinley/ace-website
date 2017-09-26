@@ -1,0 +1,10 @@
+# Use PHP55 as default
+AddHandler application/x-httpd-php56 .php
+
+Options +FollowSymLinks
+RewriteEngine On
+
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-f
+
+RewriteRule ^recruitment*$ ./index.php?action=recruitment

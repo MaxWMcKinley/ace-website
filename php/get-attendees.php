@@ -1,32 +1,37 @@
 <?php
+
+// --------------------------------------------------------------------------------------------
+// Import files
+// --------------------------------------------------------------------------------------------
+
+require("utils.php");
+require("connect.php");
+
+
+// --------------------------------------------------------------------------------------------
+// Check for null paramters and store their values in local variables
+// --------------------------------------------------------------------------------------------
+
+checkNull($_GET);
+
 $id = $_GET['id'];
 
-// Set up connection variables
-$hostname="localhost";
-$username="acesan7_max";
-$password="dbpw2669";
-$dbname="acesan7_db";
 
-// Connecting to database
-$conn = new mysqli($hostname, $username, $password, $dbname);
-if ($conn->connect_errno)
-	echo "Failed to connect to database with error number " . $conn->connect_errno . " (" . $conn->connect_error . ")";
+// --------------------------------------------------------------------------------------------
+// Get UINs of all members signed up for the event
+// --------------------------------------------------------------------------------------------
 
-// Preparing SQL statement to get all available events
-if (!($stmt = $conn->prepare("SELECT DISTINCT sign_ups.uin FROM sign_ups, shifts WHERE sign_ups.shiftid = shifts.shiftid AND shifts.eventid = ?")))
-	echo "Statement preparation failed with error number " . $conn->errno . " (" . $conn->error . ")";
+if (!($stmt = $conn->prepare("SELECT uin FROM sign_ups WHERE id = ?")))
+	echo "Select uins preparation failed with error number " . $conn->errno . " (" . $conn->error . ")";
 
-// Bind parameters to statement
 if (!$stmt->bind_param("s", $id))
-	echo "UIN parameter binding failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
+	echo "Select uins parameter binding failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
 
-// Execute statement
 if (!$stmt->execute())
-	echo "Event execute failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
+	echo "Select uins execute failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
 
-// Binding query result
 if (!$stmt->bind_result($result))
-	echo "Binding name result failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
+	echo "Binding uins result failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
 
 $i = 0;
 while ($stmt->fetch()) {
@@ -34,33 +39,39 @@ while ($stmt->fetch()) {
 	$i++;
 }
 
+
+// --------------------------------------------------------------------------------------------
+// Get the names of each member who is signed up for the event
+// --------------------------------------------------------------------------------------------
+
 $json = 0;
 if ($uins != 0) {
-	// Preparing SQL statement to get all available events
-	if (!($stmt = $conn->prepare("SELECT first_name, last_name FROM members WHERE uin = ?")))
+	if (!($stmt = $conn->prepare("SELECT name FROM nmembers WHERE uin = ?")))
 		echo "Statement preparation failed with error number " . $conn->errno . " (" . $conn->error . ")";
 
-	// Bind parameters to statement
 	if (!$stmt->bind_param("s", $uin))
 		echo "UIN parameter binding failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
 
 	$i = 0;
 	foreach ($uins as $uin) {
-		// Execute statement
 		if (!$stmt->execute())
 			echo "Event execute failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
 
-		// Binding query result
-		if (!$stmt->bind_result($first_name, $last_name))
+		if (!$stmt->bind_result($name))
 			echo "Binding name result failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
 
 		while ($stmt->fetch()) {
-			$names[$uin] = $first_name . " " . $last_name;
+			$names[$uin] = $name;
 			$i++;
 		}
 	}
 	$json = json_encode($names);
 }
+
+
+// --------------------------------------------------------------------------------------------
+// Return result and close connections
+// --------------------------------------------------------------------------------------------
 
 echo $json;
 

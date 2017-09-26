@@ -1,26 +1,20 @@
 <?php
 
 // --------------------------------------------------------------------------------------------
-// Store input parameters 
+// Import files
 // --------------------------------------------------------------------------------------------
+
+require("utils.php");
+require("connect.php");
+
+
+// --------------------------------------------------------------------------------------------
+// Check for null paramters and store their values in local variables
+// --------------------------------------------------------------------------------------------
+
+checkNull($_GET);
 
 $id = $_GET['id'];
-
-
-// --------------------------------------------------------------------------------------------
-// Connect to database
-// --------------------------------------------------------------------------------------------
-
-// Set up connection variables
-$hostname="localhost";
-$username="acesan7_max";
-$password="dbpw2669";
-$dbname="acesan7_db";
-
-// Connecting to database
-$conn = new mysqli($hostname, $username, $password, $dbname);
-if ($conn->connect_errno)
-	echo "Failed to connect to database with error number " . $conn->connect_errno . " (" . $conn->connect_error . ")";
 
 
 // --------------------------------------------------------------------------------------------

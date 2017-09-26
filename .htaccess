@@ -7,4 +7,4 @@ RewriteEngine On
 RewriteCond %{SCRIPT_FILENAME} !-d
 RewriteCond %{SCRIPT_FILENAME} !-f
 
-RewriteRule ^recruitment*$ ./index.php?action=recruitment
+RewriteRule ^(.*)$ ./index.php?action=$1

@@ -17,38 +17,20 @@ if ($conn->connect_errno)
 
 
 // --------------------------------------------------------------------------------------------
-// Get eventids of the probation event
-// --------------------------------------------------------------------------------------------
-
-if (!($stmt = $conn->prepare("SELECT id FROM event_archive WHERE name = 'Probation'")))
-	echo "Select probation id preparation failed with error number " . $conn->errno . " (" . $conn->error . ")";
-
-if (!$stmt->execute())
-	echo "Select probation id execute failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
-
-if (!$stmt->bind_result($id))
-	echo "Select probation id result binding failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
-
-while ($stmt->fetch()) {
-	$probationid = $id;
-}
-
-
-// --------------------------------------------------------------------------------------------
 // Get attendance of each member
 // --------------------------------------------------------------------------------------------
 
-if (!($stmt = $conn->prepare("SELECT first_name, last_name, email, phone_number FROM members ORDER BY first_name")))
+if (!($stmt = $conn->prepare("SELECT name, email, phone FROM nmembers ORDER BY name")))
 	echo "Select probation preparation failed with error number " . $conn->errno . " (" . $conn->error . ")";
 
 if (!$stmt->execute())
 	echo "Select probation execute failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
 
-if (!$stmt->bind_result($first, $last, $email, $number))
+if (!$stmt->bind_result($name, $email, $number))
 	echo "Select probation result binding failed with error number " . $stmt->errno . " (" . $stmt->error . ")";
 
 while ($stmt->fetch()) {
-	echo $first . " " . $last . " --- " . " Email: " . $email . ", Phone Number: " . $number . "<br><br>";
+	echo $name . " --- " . " Email: " . $email . ", Phone Number: " . $number . "<br><br>";
 }
 
 $stmt->close();

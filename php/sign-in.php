@@ -41,6 +41,15 @@ $permitted = true;
 date_default_timezone_set('America/Chicago');
 $today = date('Y-m-d');
 
+$localtime = localtime();
+$day = $localtime[6];
+$hour = $localtime[2];
+$minute = $localtime[1];
+
+if ($day != 1 || $hour < 20 || $hour > 21) {
+	$permitted = false;
+}
+
 if ($last != NULL) {
 	$difference = time() - strtotime($last);
 

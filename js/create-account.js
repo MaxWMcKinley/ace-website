@@ -20,7 +20,7 @@ $(document).ready(() => {
 		})
 		.done(data => {
 			if(data == "success") {
-				window.location.href = "?action=nexus";
+				window.location.href = "nexus";
 			} else if(data == "wrongAccess") {
 				showAlert("alert-info", "Failure!", "Access code did not match. Please try again.");
 			} else {

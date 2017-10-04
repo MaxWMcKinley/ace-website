@@ -2,7 +2,7 @@ $(document).ready(() => {
 	$('#log-out').click(() => {
 		$.ajax('../php/log-out.php')
 		.done(() => {
-			window.location.href = "?action=log-in";
+			window.location.href = "log-in";
 		});
 	});
 
@@ -125,7 +125,7 @@ function getAttendance() {
 		type: "GET",
 		url: "../php/get-attendance.php",
 		success: function(response) {
-			document.getElementById("attendance").innerHTML = response + " out of 4";
+			document.getElementById("attendance").innerHTML = response + " out of 5";
 		}
 	});
 }
@@ -236,7 +236,7 @@ function submitEvent() {
             url: "../php/submit-event.php",
             data: {uins: JSON.stringify(uins), eventid: eventId},
             success: function(response) {
-				window.location.href = "?action=nexus";
+				window.location.href = "nexus";
 			}
 	})
 	.fail(function() {
@@ -254,7 +254,7 @@ function signIn() {
         success: function(response) {
         	console.log(" response: " + response);
         	if (response !== "0")
-     	      	document.getElementById("attendance").innerHTML = response + " out of 4";
+     	      	document.getElementById("attendance").innerHTML = response + " out of 5";
         	else
         		alert("You are not allowed to sign up at this time, contact Max if you believe this is an error");
         }

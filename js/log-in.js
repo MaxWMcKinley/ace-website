@@ -17,7 +17,7 @@ $(document).ready(() => {
 			console.log('in done');
 
 			if(data == "success") {
-				window.location.href = "?action=nexus";
+				window.location.href = "nexus";
 			} else if(data == "failure") {3
 				showAlert("alert-info", "Failure!", "UIN and password were not correct. Please try again.");
 			} else {

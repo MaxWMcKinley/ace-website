@@ -47,7 +47,10 @@ if (!$stmt->bind_param("sssisssssis", $id, $uin, $name, $points, $type, $date, $
 // Create a unique event for each shift
 $count = 1;
 foreach ($starts as $key => $start) {
-	$name = $event_name . " - Shift " . $count;
+	$name = $event_name;
+	if (count($starts) > 1) {
+		$name .= (" - Shift " . $count);
+	}
 	$end = $ends[$key];
 	$numSpots = $spots[$key];
 	if (!$numSpots) {

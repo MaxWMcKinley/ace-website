@@ -1,10 +1,2 @@
 # ACE
-Prototype website for Aggie Club of Engineers
-
-To-dos
--Make html files dynamic with php
--Protect against injection (prepared statements, mysqli)
--Create point management page
--Create event creation page
--Create sign up page
--Create event management page
+Website for the Aggie Club of Engineers organization and Texas A&M University.  The website does two things.  First, serves as a basic static website with information about the organization open to the public.  It also has an account and event tracking system that allows officers to create custom events that members can sign up for before attending.  The system tracks the points and attendance of all the members of the organization.
